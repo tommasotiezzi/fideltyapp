@@ -1,0 +1,596 @@
+/* programs.css - Styles for loyalty programs page */
+
+/* Hero Section Fix */
+.programs-hero {
+    padding: 100px 0 40px;
+    background: linear-gradient(180deg, var(--primary-50, #F5F3FF) 0%, var(--bg-primary, #FFFFFF) 100%);
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gray-900, #111827);
+    margin-bottom: 16px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: var(--gray-600, #4B5563);
+    line-height: 1.5;
+}
+
+/* Search Bar Container Fix */
+.search-bar-container {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 16px 20px 16px 48px;
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #A78BFA;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    color: #9CA3AF;
+    pointer-events: none;
+}
+
+/* Location Filter */
+.location-filter {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-pill {
+    padding: 8px 20px;
+    border: 2px solid var(--gray-200);
+    background: white;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-pill:hover {
+    border-color: var(--primary-400);
+    color: var(--primary-600);
+}
+
+.filter-pill.active {
+    background: var(--primary-600);
+    border-color: var(--primary-600);
+    color: white;
+}
+
+/* Programs Grid */
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+
+/* Program Card */
+.program-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.program-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
+/* Loyalty Card Display */
+.card-preview {
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-500) 100%);
+    position: relative;
+    min-height: 200px;
+}
+
+.card-preview.custom-bg {
+    background-size: cover;
+    background-position: center;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.card-content-preview {
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.card-header-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.card-logo-preview {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-logo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-restaurant-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+.card-location-text {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Stamps Grid */
+.stamps-preview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.stamp-preview {
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+}
+
+.stamp-preview.demo-filled {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: white;
+    color: var(--primary-600);
+    font-weight: 600;
+}
+
+.card-reward-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 14px;
+    color: white;
+}
+
+/* Card Info Section */
+.card-info-section {
+    padding: 20px;
+    background: white;
+}
+
+.restaurant-info {
+    margin-bottom: 16px;
+}
+
+.restaurant-name-link {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+}
+
+.restaurant-address {
+    font-size: 14px;
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 2px;
+}
+
+.card-action-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    justify-content: center;
+}
+
+/* Loading State */
+.loading-container {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--gray-200);
+    border-top-color: var(--primary-600);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-container p {
+    margin-top: 16px;
+    color: var(--gray-600);
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state svg {
+    color: var(--gray-300);
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 20px;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: var(--gray-600);
+}
+
+/* Auth Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;  /* Above QR overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--gray-100);
+    border-radius: 50%;
+    font-size: 20px;
+    color: var(--gray-600);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: var(--gray-200);
+    color: var(--gray-900);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+.modal-header p {
+    font-size: 14px;
+    color: var(--gray-600);
+}
+
+/* Auth Forms */
+.auth-form {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--gray-600);
+}
+
+.form-footer a {
+    color: var(--primary-600);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Success State */
+.success-content {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.success-content svg {
+    margin-bottom: 20px;
+}
+
+.success-content h3 {
+    font-size: 20px;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+.success-content p {
+    color: var(--gray-600);
+    margin-bottom: 24px;
+}
+
+/* User Menu */
+#user-menu {
+    display: flex;
+    align-items: center;
+}
+
+/* QR Card Overlay */
+.qr-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;  /* Below auth modal */
+    animation: fadeIn 0.3s ease;
+    padding: 20px;
+}
+
+.qr-card-container {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    animation: slideUp 0.4s ease;
+}
+
+.qr-highlighted-card {
+    transform: none !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+    margin: 0 !important;
+}
+
+.qr-close-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+.qr-close-btn:hover {
+    background: #f0f0f0;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .programs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .location-filter {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 20px;
+    }
+    
+    .stamps-preview {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .stamp-preview {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 24px;
+    }
+    
+    .card-stats {
+        font-size: 14px;
+    }
+    
+    .stat-number {
+        font-size: 18px;
+    }
+}
