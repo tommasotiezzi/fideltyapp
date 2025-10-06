@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Check for QR redirect
     handleQRRedirect();
+    
+    // Initialize App CTA
+    initializeAppCTA();
 });
 
 /**
@@ -202,7 +205,6 @@ function createProgramCard(program, userCardData = null) {
         <div class="card-preview" style="${bgStyle}; position: relative;">
             ${ownedBadge}
             ${grayOverlay}
-            ${program.background_image_url ? '<div class="card-overlay"></div>' : ''}
             <div class="card-content-preview" style="position: relative; z-index: 1;">
                 <div class="card-header-preview">
                     <div class="card-logo-preview">
@@ -334,10 +336,11 @@ window.closeQRModal = function() {
 
 /**
  * Handle getting a card - this is called when the button is clicked
-/**
- * Handle getting a card - this is called when the button is clicked
+ * @param {string} cardId - The loyalty card ID
+ * @param {string} restaurantId - The restaurant ID
+ * @param {boolean} skipUIUpdate - If true, only add card without UI changes (for signup flow)
  */
-window.getCard = async function(cardId, restaurantId) {
+window.getCard = async function(cardId, restaurantId, skipUIUpdate = false) {
     console.log('Getting card:', cardId, 'from restaurant:', restaurantId);
     selectedCardForAuth = cardId;
     
@@ -358,7 +361,9 @@ window.getCard = async function(cardId, restaurantId) {
             .single();
         
         if (existing) {
-            alert('You already have this card!');
+            if (!skipUIUpdate) {
+                alert('You already have this card!');
+            }
             return;
         }
         
@@ -395,25 +400,30 @@ window.getCard = async function(cardId, restaurantId) {
         
         if (error) throw error;
         
-        // Show success in modal
-        const signinForm = document.getElementById('signin-form');
-        const signupForm = document.getElementById('signup-form');
-        const successState = document.getElementById('success-state');
-        
-        if (signinForm) signinForm.style.display = 'none';
-        if (signupForm) signupForm.style.display = 'none';
-        if (successState) successState.style.display = 'block';
-        
-        // Auto-reload after 2 seconds
-        setTimeout(() => {
-            window.location.reload();
-        }, 2000);
+        // Only update UI if not skipped (direct button click vs signup flow)
+        if (!skipUIUpdate) {
+            const signinForm = document.getElementById('signin-form');
+            const signupForm = document.getElementById('signup-form');
+            const successState = document.getElementById('success-state');
+            
+            if (signinForm) signinForm.style.display = 'none';
+            if (signupForm) signupForm.style.display = 'none';
+            if (successState) successState.style.display = 'block';
+            
+            // Auto-reload after 2 seconds
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
         
     } catch (error) {
         console.error('Error adding card:', error);
-        alert('Error adding card. Please try again.');
+        if (!skipUIUpdate) {
+            alert('Error adding card. Please try again.');
+        }
     }
 }
+
 /**
  * Open auth modal
  */
@@ -507,13 +517,13 @@ window.signIn = async function() {
         if (selectedCardForAuth) {
             // Handle both object format (from QR) and string format (from regular click)
             if (typeof selectedCardForAuth === 'object') {
-                await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId);
+                await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId, true);
             } else {
                 // For regular clicks, we need to find the restaurant_id
                 const card = document.querySelector(`[data-card-id="${selectedCardForAuth}"]`);
                 const restaurantId = card?.dataset.restaurantId;
                 if (restaurantId) {
-                    await getCard(selectedCardForAuth, restaurantId);
+                    await getCard(selectedCardForAuth, restaurantId, true);
                 }
             }
         }
@@ -605,12 +615,12 @@ window.signUp = async function() {
             setTimeout(async () => {
                 // Handle both object format (from QR) and string format (from regular click)
                 if (typeof selectedCardForAuth === 'object') {
-                    await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId);
+                    await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId, true);
                 } else {
                     const card = document.querySelector(`[data-card-id="${selectedCardForAuth}"]`);
                     const restaurantId = card?.dataset.restaurantId;
                     if (restaurantId) {
-                        await getCard(selectedCardForAuth, restaurantId);
+                        await getCard(selectedCardForAuth, restaurantId, true);
                     }
                 }
             }, 1000);
@@ -842,4 +852,50 @@ function filterByLocation(location) {
             card.style.display = 'none';
         }
     });
+}
+
+/**
+ * App CTA functionality
+ */
+window.closeAppCTA = function() {
+    const cta = document.getElementById('app-cta');
+    if (cta) {
+        cta.classList.add('hidden');
+        document.body.classList.remove('app-cta-visible');
+        // Remember user dismissed it (store in localStorage)
+        localStorage.setItem('appCtaDismissed', 'true');
+    }
+}
+
+/**
+ * Initialize App CTA
+ */
+function initializeAppCTA() {
+    const dismissed = localStorage.getItem('appCtaDismissed');
+    if (!dismissed) {
+        document.body.classList.add('app-cta-visible');
+    } else {
+        const cta = document.getElementById('app-cta');
+        if (cta) cta.classList.add('hidden');
+    }
+    
+    // Update store links based on device
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isAndroid = /Android/.test(navigator.userAgent);
+    
+    const appStoreLink = document.getElementById('app-store-link');
+    const playStoreLink = document.getElementById('play-store-link');
+    
+    if (appStoreLink && playStoreLink) {
+        // Replace # with your actual store URLs
+        appStoreLink.href = 'https://apps.apple.com/app/your-app-id';
+        playStoreLink.href = 'https://play.google.com/store/apps/details?id=your.package.name';
+        
+        // Hide non-relevant store on mobile
+        if (isIOS && window.innerWidth <= 768) {
+            playStoreLink.style.display = 'none';
+        } else if (isAndroid && window.innerWidth <= 768) {
+            appStoreLink.style.display = 'none';
+        }
+    }
 }
