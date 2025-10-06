@@ -14,6 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Supabase Config -->
     <script src="supabase-programs.js"></script>
+    <!-- QR Code Generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -72,13 +74,11 @@
             </div>
 
             <!-- Location Filter -->
-            <div class="location-filter">
-                <button class="filter-pill active" data-location="all">All Locations</button>
-                <button class="filter-pill" data-location="milano">Milano</button>
-                <button class="filter-pill" data-location="roma">Roma</button>
-                <button class="filter-pill" data-location="napoli">Napoli</button>
-            </div>
-
+<!-- Location Filter -->
+<div class="location-filter">
+    <button class="filter-pill" data-filter="my-cards">My Cards</button>
+    <button class="filter-pill active" data-location="all">All Locations</button>
+</div>
             <!-- Programs Grid -->
             <div class="programs-grid" id="programs-grid">
                 <!-- Cards will be loaded here dynamically -->
