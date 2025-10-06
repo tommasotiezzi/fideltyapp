@@ -334,6 +334,8 @@ window.closeQRModal = function() {
 
 /**
  * Handle getting a card - this is called when the button is clicked
+/**
+ * Handle getting a card - this is called when the button is clicked
  */
 window.getCard = async function(cardId, restaurantId) {
     console.log('Getting card:', cardId, 'from restaurant:', restaurantId);
@@ -360,14 +362,35 @@ window.getCard = async function(cardId, restaurantId) {
             return;
         }
         
-        // Add card to user with restaurant_id
+        // Fetch the loyalty card details to snapshot the display data
+        const { data: loyaltyCard, error: fetchError } = await supabase
+            .from('loyalty_cards')
+            .select('*')
+            .eq('id', cardId)
+            .single();
+        
+        if (fetchError) throw fetchError;
+        
+        // Add card to user with full snapshot data (matching Flutter app)
         const { error } = await supabase
             .from('customer_cards')
             .insert({
                 customer_id: currentUser.id,
                 loyalty_card_id: cardId,
                 restaurant_id: restaurantId,
-                current_stamps: 0
+                current_stamps: 0,
+                is_completed: false,
+                // Snapshot data from loyalty_cards
+                display_name: loyaltyCard.display_name,
+                location_name: loyaltyCard.location_name,
+                location_address: loyaltyCard.location_address,
+                stamps_required: loyaltyCard.stamps_required,
+                reward_text: loyaltyCard.reward_text,
+                logo_url: loyaltyCard.logo_url,
+                background_image_url: loyaltyCard.background_image_url,
+                card_color: loyaltyCard.card_color,
+                text_color: loyaltyCard.text_color,
+                show_location_on_card: loyaltyCard.show_location_on_card || false,
             });
         
         if (error) throw error;
@@ -391,7 +414,6 @@ window.getCard = async function(cardId, restaurantId) {
         alert('Error adding card. Please try again.');
     }
 }
-
 /**
  * Open auth modal
  */
