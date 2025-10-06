@@ -92,22 +92,29 @@ async function loadPrograms() {
         }
         
         // Check which cards the user already has (if logged in)
-        let userCards = [];
+        let userCardsMap = {};
         if (currentUser) {
             const { data: customerCards } = await supabase
                 .from('customer_cards')
-                .select('loyalty_card_id')
-                .eq('customer_id', currentUser.id);  // Use customer_id column
+                .select('loyalty_card_id, current_stamps, is_completed, card_number')
+                .eq('customer_id', currentUser.id);
             
             if (customerCards) {
-                userCards = customerCards.map(c => c.loyalty_card_id);
+                // Create a map of card_id -> {stamps, completed, cardNumber}
+                customerCards.forEach(card => {
+                    userCardsMap[card.loyalty_card_id] = {
+                        stamps: card.current_stamps || 0,
+                        completed: card.is_completed || false,
+                        cardNumber: card.card_number
+                    };
+                });
             }
         }
         
         // Display each program
         programs.forEach(program => {
-            const hasCard = userCards.includes(program.id);
-            const card = createProgramCard(program, hasCard);
+            const userCardData = userCardsMap[program.id];
+            const card = createProgramCard(program, userCardData);
             grid.appendChild(card);
         });
         
@@ -122,19 +129,29 @@ async function loadPrograms() {
 /**
  * Create a program card element
  */
-function createProgramCard(program, userHasCard = false) {
+function createProgramCard(program, userCardData = null) {
     const card = document.createElement('div');
     card.className = 'program-card';
     card.dataset.cardId = program.id;
     card.dataset.qrCode = program.discovery_qr_code;
-    card.dataset.restaurantId = program.restaurant_id;  // Add restaurant_id to dataset
+    card.dataset.restaurantId = program.restaurant_id;
     card.dataset.name = (program.display_name || '').toLowerCase();
     card.dataset.location = (program.restaurants?.city || '').toLowerCase();
     
     const stampsRequired = program.stamps_required || 10;
+    const userHasCard = userCardData !== null;
+    const currentStamps = userCardData?.stamps || 0;
+    const isCompleted = userCardData?.completed || false;
+    const cardNumber = userCardData?.cardNumber;
+    
+    // Add data attribute for filtering owned cards
+    card.dataset.owned = userHasCard ? 'true' : 'false';
+    
+    // Generate stamps HTML with actual user progress
     let stampsHtml = '';
     for (let i = 0; i < Math.min(stampsRequired, 10); i++) {
-        stampsHtml += `<div class="stamp-preview ${i < 3 ? 'demo-filled' : ''}">${i < 3 ? '✓' : ''}</div>`;
+        const isFilled = userHasCard ? (i < currentStamps) : (i < 3); // Show user's actual stamps or demo 3 stamps
+        stampsHtml += `<div class="stamp-preview ${isFilled ? 'demo-filled' : ''}">${isFilled ? '✓' : ''}</div>`;
     }
     
     // Background style
@@ -148,18 +165,45 @@ function createProgramCard(program, userHasCard = false) {
     }
     
     // Button HTML based on whether user has the card
-    const buttonHtml = userHasCard 
-        ? `<button class="btn btn-secondary card-action-btn" disabled>
-            ✓ You have this card
-           </button>`
-        : `<button class="btn btn-primary card-action-btn" onclick="getCard('${program.id}', '${program.restaurant_id}')">
+    let buttonHtml;
+    if (isCompleted) {
+        buttonHtml = `<button class="btn btn-success" style="background: #10B981; color: white; cursor: default;" disabled>
+            🎉 Reward Earned!
+           </button>`;
+    } else if (userHasCard) {
+        buttonHtml = `
+            <div style="background: #f0f0f0; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 12px;">
+                <div style="font-size: 24px; font-weight: 700; color: #7c5ce6;">${currentStamps}/${stampsRequired}</div>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">Stamps</div>
+            </div>
+            <button class="btn btn-primary card-action-btn" onclick="showQRCode('${program.id}', '${program.display_name}', ${cardNumber})" style="background: #7c5ce6;">
+                Show QR Code
+            </button>
+        `;
+    } else {
+        buttonHtml = `<button class="btn btn-primary card-action-btn" onclick="getCard('${program.id}', '${program.restaurant_id}')">
             Get This Card
            </button>`;
+    }
+    
+    // Add visual badge for owned cards
+    const ownedBadge = userHasCard ? `
+        <div style="position: absolute; top: 12px; right: 12px; background: rgba(124, 92, 230, 0.95); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            ✓ Your Card
+        </div>
+    ` : '';
+    
+    // Add light overlay for cards user doesn't own
+    const grayOverlay = !userHasCard ? `
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.3); z-index: 1; pointer-events: none;"></div>
+    ` : '';
     
     card.innerHTML = `
-        <div class="card-preview" style="${bgStyle}">
+        <div class="card-preview" style="${bgStyle}; position: relative;">
+            ${ownedBadge}
+            ${grayOverlay}
             ${program.background_image_url ? '<div class="card-overlay"></div>' : ''}
-            <div class="card-content-preview">
+            <div class="card-content-preview" style="position: relative; z-index: 1;">
                 <div class="card-header-preview">
                     <div class="card-logo-preview">
                         ${program.logo_url 
@@ -196,16 +240,8 @@ function createProgramCard(program, userHasCard = false) {
             
             <div class="card-stats">
                 <div class="stat-item">
-                    <div class="stat-number">${program.active_users || 0}</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-item">
                     <div class="stat-number">${stampsRequired}</div>
-                    <div class="stat-label">Stamps Needed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">${program.total_stamps || 0}</div>
-                    <div class="stat-label">Rewards Given</div>
+                    <div class="stat-label">Stamps to Reward</div>
                 </div>
             </div>
             
@@ -214,6 +250,86 @@ function createProgramCard(program, userHasCard = false) {
     `;
     
     return card;
+}
+
+/**
+ * Show QR Code Modal
+ */
+window.showQRCode = async function(cardId, restaurantName, cardNumber) {
+    console.log('Showing QR code for card:', cardId, 'Card number:', cardNumber);
+    
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.id = 'qr-modal';
+    modal.className = 'modal';
+    modal.style.display = 'flex';
+    modal.style.zIndex = '10000';
+    
+    modal.innerHTML = `
+        <div class="modal-backdrop" onclick="closeQRModal()"></div>
+        <div class="modal-content" style="max-width: 500px;">
+            <button class="modal-close" onclick="closeQRModal()">×</button>
+            
+            <div style="text-align: center; padding: 20px 0;">
+                <h2 style="font-size: 24px; font-weight: 600; margin-bottom: 8px;">${restaurantName}</h2>
+                <p style="font-size: 14px; color: #666; margin-bottom: 32px;">Scan Card</p>
+                
+                <!-- QR Code -->
+                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 32px;">
+                    <div id="qr-code-container" style="display: flex; justify-content: center;"></div>
+                </div>
+                
+                <p style="font-size: 16px; color: #666; margin-bottom: 24px;">
+                    Show this code to staff to collect stamps
+                </p>
+                
+                <!-- Card Number Display -->
+                <div style="background: #f5f5f7; padding: 24px; border-radius: 16px; margin-top: 24px;">
+                    <p style="font-size: 14px; color: #666; margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">
+                        Card Number
+                    </p>
+                    <p style="font-size: 48px; font-weight: bold; color: #7c5ce6; letter-spacing: 2px; margin: 0; user-select: all;">
+                        #${cardNumber}
+                    </p>
+                    <p style="font-size: 12px; color: #999; margin-top: 8px;">
+                        For manual entry by staff
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Generate QR code using a library (you'll need to include qrcode.js)
+    // For now, we'll use a simple approach with an API
+    const qrContainer = document.getElementById('qr-code-container');
+    if (qrContainer) {
+        // Using qrcode.js library (add this script tag to your HTML: <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>)
+        if (typeof QRCode !== 'undefined') {
+            new QRCode(qrContainer, {
+                text: cardId,
+                width: 280,
+                height: 280,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        } else {
+            // Fallback to QR code API
+            qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(cardId)}" alt="QR Code" style="width: 280px; height: 280px;">`;
+        }
+    }
+}
+
+/**
+ * Close QR Code Modal
+ */
+window.closeQRModal = function() {
+    const modal = document.getElementById('qr-modal');
+    if (modal) {
+        modal.remove();
+    }
 }
 
 /**
@@ -250,7 +366,7 @@ window.getCard = async function(cardId, restaurantId) {
             .insert({
                 customer_id: currentUser.id,
                 loyalty_card_id: cardId,
-                restaurant_id: restaurantId,  // Include restaurant_id
+                restaurant_id: restaurantId,
                 current_stamps: 0
             });
         
@@ -391,7 +507,7 @@ window.signIn = async function() {
 }
 
 /**
- * Sign up
+ * Sign up - Updated to create user profile
  */
 window.signUp = async function() {
     const nameInput = document.getElementById('signup-name');
@@ -418,7 +534,7 @@ window.signUp = async function() {
             password,
             options: {
                 data: {
-                    full_name: name
+                    display_name: name
                 }
             }
         });
@@ -426,6 +542,24 @@ window.signUp = async function() {
         if (error) throw error;
         
         currentUser = data.user;
+        
+        // Create user profile entry (same as Flutter app)
+        if (currentUser) {
+            try {
+                await supabase
+                    .from('user_profiles')
+                    .insert({
+                        user_id: currentUser.id,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    });
+                
+                console.log('User profile created for:', currentUser.id);
+            } catch (profileError) {
+                console.error('Error creating user profile:', profileError);
+                // Don't throw - user account is created, profile can be created later
+            }
+        }
         
         // Show success message in modal
         const signinForm = document.getElementById('signin-form');
@@ -439,7 +573,7 @@ window.signUp = async function() {
         if (successState) {
             successState.style.display = 'block';
             if (successMessage) {
-                successMessage.textContent = 'Account created! Check your email to confirm.';
+                successMessage.textContent = 'Account created! Adding your card...';
             }
         }
         if (modalTitle) modalTitle.textContent = 'Success!';
@@ -447,7 +581,16 @@ window.signUp = async function() {
         // If we have a selected card, add it after a short delay
         if (selectedCardForAuth && currentUser) {
             setTimeout(async () => {
-                await getCard(selectedCardForAuth);
+                // Handle both object format (from QR) and string format (from regular click)
+                if (typeof selectedCardForAuth === 'object') {
+                    await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId);
+                } else {
+                    const card = document.querySelector(`[data-card-id="${selectedCardForAuth}"]`);
+                    const restaurantId = card?.dataset.restaurantId;
+                    if (restaurantId) {
+                        await getCard(selectedCardForAuth, restaurantId);
+                    }
+                }
             }, 1000);
         } else {
             // Reload after 2 seconds
@@ -476,11 +619,11 @@ window.signOut = async function() {
 }
 
 /**
- * View my cards (placeholder - would navigate to wallet)
+ * View my cards - reload page to show updated cards
  */
 window.viewMyCards = function() {
-    alert('Wallet feature coming soon!');
     closeAuthModal();
+    window.location.reload();
 }
 
 /**
@@ -540,7 +683,7 @@ function handleQRRedirect() {
                     const cardId = targetCard.dataset.cardId;
                     const restaurantId = targetCard.dataset.restaurantId;
                     if (cardId) {
-                        selectedCardForAuth = { cardId, restaurantId };  // Store both
+                        selectedCardForAuth = { cardId, restaurantId };
                     }
                 }
             }
@@ -568,9 +711,15 @@ function setupEventListeners() {
             document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            // Filter by location
+            // Filter by location or ownership
             const location = btn.dataset.location;
-            filterByLocation(location);
+            const filter = btn.dataset.filter;
+            
+            if (filter === 'my-cards') {
+                filterMyCards();
+            } else if (location) {
+                filterByLocation(location);
+            }
         });
     });
     
@@ -578,6 +727,65 @@ function setupEventListeners() {
     const authBtn = document.getElementById('auth-btn');
     if (authBtn) {
         authBtn.addEventListener('click', openAuthModal);
+    }
+    
+    // Check if coming from QR flow or logged in - show "My Cards" by default
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromQR = urlParams.get('qr');
+    
+    if ((currentUser && fromQR) || (currentUser && !fromQR)) {
+        // Auto-select "My Cards" if user is logged in
+        setTimeout(() => {
+            const myCardsBtn = document.querySelector('[data-filter="my-cards"]');
+            if (myCardsBtn) {
+                myCardsBtn.click();
+            }
+        }, 100);
+    }
+}
+
+/**
+ * Filter to show only user's cards
+ */
+function filterMyCards() {
+    const cards = document.querySelectorAll('.program-card');
+    let hasCards = false;
+    
+    cards.forEach(card => {
+        if (card.dataset.owned === 'true') {
+            card.style.display = 'block';
+            hasCards = true;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Show empty state if user has no cards
+    if (!hasCards && currentUser) {
+        const grid = document.getElementById('programs-grid');
+        if (grid) {
+            const emptyMsg = document.createElement('div');
+            emptyMsg.className = 'empty-state-inline';
+            emptyMsg.style.cssText = 'grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #666;';
+            emptyMsg.innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
+                <h3 style="font-size: 20px; color: #333; margin-bottom: 8px;">No cards yet</h3>
+                <p style="margin-bottom: 20px;">Start collecting loyalty cards to earn rewards</p>
+                <button class="btn btn-primary" onclick="document.querySelector('[data-location=\\'all\\']').click()">
+                    Browse All Programs
+                </button>
+            `;
+            
+            // Remove old empty state if exists
+            const oldEmpty = grid.querySelector('.empty-state-inline');
+            if (oldEmpty) oldEmpty.remove();
+            
+            grid.appendChild(emptyMsg);
+        }
+    } else {
+        // Remove empty state if it exists
+        const emptyMsg = document.querySelector('.empty-state-inline');
+        if (emptyMsg) emptyMsg.remove();
     }
 }
 
