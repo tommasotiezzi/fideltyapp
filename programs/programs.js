@@ -28,8 +28,10 @@ document.addEventListener('DOMContentLoaded', async () => {
  * Check if user is authenticated
  */
 async function checkAuth() {
+    console.log('Checking authentication...');
     try {
         const { data: { user } } = await supabase.auth.getUser();
+        console.log('Auth response:', user);
         currentUser = user;
         
         const authBtn = document.getElementById('auth-btn');
@@ -37,11 +39,13 @@ async function checkAuth() {
         const userEmail = document.getElementById('user-email');
         
         if (user) {
+            console.log('User is logged in:', user.email);
             // User is logged in
             if (authBtn) authBtn.style.display = 'none';
             if (userMenu) userMenu.style.display = 'flex';
             if (userEmail) userEmail.textContent = user.email;
         } else {
+            console.log('User is NOT logged in');
             // User is not logged in
             if (authBtn) authBtn.style.display = 'block';
             if (userMenu) userMenu.style.display = 'none';
@@ -55,6 +59,7 @@ async function checkAuth() {
  * Load all active loyalty programs from database
  */
 async function loadPrograms() {
+    console.log('Loading programs from database...');
     const grid = document.getElementById('programs-grid');
     if (!grid) {
         console.error('Programs grid not found');
@@ -65,24 +70,29 @@ async function loadPrograms() {
     grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;">Loading programs...</div>';
     
     try {
-        // Query the database for active loyalty cards
+        // Query the database for active loyalty cards WITHOUT restaurants join
+        console.log('Executing query...');
         const { data: programs, error } = await supabase
             .from('loyalty_cards')
             .select('*')
             .eq('is_active', true)
             .not('discovery_qr_code', 'is', null);
-            `)
+        
+        console.log('Query response - data:', programs);
+        console.log('Query response - error:', error);
+        
         if (error) {
             console.error('Database error:', error);
             throw error;
         }
         
-        console.log('Programs from database:', programs);
+        console.log('Number of programs found:', programs?.length || 0);
         
         // Clear loading message
         grid.innerHTML = '';
         
         if (!programs || programs.length === 0) {
+            console.log('No programs found');
             grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">No active loyalty programs available.</div>';
             return;
         }
@@ -90,10 +100,14 @@ async function loadPrograms() {
         // Check which cards the user already has (if logged in)
         let userCardsMap = {};
         if (currentUser) {
-            const { data: customerCards } = await supabase
+            console.log('Fetching user cards for:', currentUser.id);
+            const { data: customerCards, error: cardsError } = await supabase
                 .from('customer_cards')
                 .select('loyalty_card_id, current_stamps, is_completed, card_number')
                 .eq('customer_id', currentUser.id);
+            
+            console.log('User cards response - data:', customerCards);
+            console.log('User cards response - error:', cardsError);
             
             if (customerCards) {
                 // Create a map of card_id -> {stamps, completed, cardNumber}
@@ -104,15 +118,20 @@ async function loadPrograms() {
                         cardNumber: card.card_number
                     };
                 });
+                console.log('User cards map:', userCardsMap);
             }
         }
         
         // Display each program
-        programs.forEach(program => {
+        console.log('Creating program cards...');
+        programs.forEach((program, index) => {
+            console.log(`Creating card ${index + 1}:`, program);
             const userCardData = userCardsMap[program.id];
             const card = createProgramCard(program, userCardData);
             grid.appendChild(card);
         });
+        
+        console.log('All cards created successfully!');
         
     } catch (error) {
         console.error('Error loading programs:', error);
@@ -132,7 +151,7 @@ function createProgramCard(program, userCardData = null) {
     card.dataset.qrCode = program.discovery_qr_code;
     card.dataset.restaurantId = program.restaurant_id;
     card.dataset.name = (program.display_name || '').toLowerCase();
-    card.dataset.location = (program.restaurants?.city || '').toLowerCase();
+    card.dataset.location = (program.location_name || '').toLowerCase();
     
     const stampsRequired = program.stamps_required || 10;
     const userHasCard = userCardData !== null;
@@ -225,10 +244,10 @@ function createProgramCard(program, userCardData = null) {
         
         <div class="card-info-section">
             <div class="restaurant-info">
-                <div class="restaurant-name-link">${program.restaurants?.name || program.display_name}</div>
-                ${program.restaurants?.address ? `
+                <div class="restaurant-name-link">${program.display_name || 'Restaurant'}</div>
+                ${program.location_address ? `
                     <div class="restaurant-address">
-                        📍 ${program.restaurants.address}
+                        📍 ${program.location_address}
                     </div>
                 ` : ''}
             </div>
@@ -338,6 +357,7 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate = false) {
     selectedCardForAuth = cardId;
     
     if (!currentUser) {
+        console.log('User not logged in, opening auth modal');
         // User not logged in - open auth modal
         openAuthModal();
         return;
@@ -345,21 +365,27 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate = false) {
     
     // User is logged in - add the card
     try {
+        console.log('Checking if user already has this card...');
         // Check if user already has this card
-        const { data: existing } = await supabase
+        const { data: existing, error: existingError } = await supabase
             .from('customer_cards')
             .select('id')
             .eq('customer_id', currentUser.id)
             .eq('loyalty_card_id', cardId)
             .single();
         
+        console.log('Existing card check - data:', existing);
+        console.log('Existing card check - error:', existingError);
+        
         if (existing) {
+            console.log('User already has this card');
             if (!skipUIUpdate) {
                 alert('You already have this card!');
             }
             return;
         }
         
+        console.log('Fetching loyalty card details...');
         // Fetch the loyalty card details to snapshot the display data
         const { data: loyaltyCard, error: fetchError } = await supabase
             .from('loyalty_cards')
@@ -367,10 +393,14 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate = false) {
             .eq('id', cardId)
             .single();
         
+        console.log('Loyalty card fetch - data:', loyaltyCard);
+        console.log('Loyalty card fetch - error:', fetchError);
+        
         if (fetchError) throw fetchError;
         
+        console.log('Adding card to customer_cards...');
         // Add card to user with full snapshot data (matching Flutter app)
-        const { error } = await supabase
+        const { data: insertData, error: insertError } = await supabase
             .from('customer_cards')
             .insert({
                 customer_id: currentUser.id,
@@ -391,7 +421,12 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate = false) {
                 show_location_on_card: loyaltyCard.show_location_on_card || false,
             });
         
-        if (error) throw error;
+        console.log('Card insert - data:', insertData);
+        console.log('Card insert - error:', insertError);
+        
+        if (insertError) throw insertError;
+        
+        console.log('Card added successfully!');
         
         // Only update UI if not skipped (direct button click vs signup flow)
         if (!skipUIUpdate) {
@@ -421,6 +456,7 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate = false) {
  * Open auth modal
  */
 window.openAuthModal = function() {
+    console.log('Opening auth modal');
     const modal = document.getElementById('auth-modal');
     if (!modal) {
         console.error('Auth modal not found');
@@ -443,6 +479,7 @@ window.openAuthModal = function() {
  * Close auth modal
  */
 window.closeAuthModal = function() {
+    console.log('Closing auth modal');
     const modal = document.getElementById('auth-modal');
     if (modal) {
         modal.style.display = 'none';
@@ -454,6 +491,7 @@ window.closeAuthModal = function() {
  * Switch to sign up form
  */
 window.switchToSignUp = function() {
+    console.log('Switching to sign up form');
     const signinForm = document.getElementById('signin-form');
     const signupForm = document.getElementById('signup-form');
     const modalTitle = document.getElementById('modal-title');
@@ -467,6 +505,7 @@ window.switchToSignUp = function() {
  * Switch to sign in form
  */
 window.switchToSignIn = function() {
+    console.log('Switching to sign in form');
     const signinForm = document.getElementById('signin-form');
     const signupForm = document.getElementById('signup-form');
     const modalTitle = document.getElementById('modal-title');
@@ -480,6 +519,7 @@ window.switchToSignIn = function() {
  * Sign in
  */
 window.signIn = async function() {
+    console.log('Attempting sign in...');
     const emailInput = document.getElementById('signin-email');
     const passwordInput = document.getElementById('signin-password');
     
@@ -490,6 +530,8 @@ window.signIn = async function() {
     
     const email = emailInput.value.trim();
     const password = passwordInput.value;
+    
+    console.log('Sign in email:', email);
     
     if (!email || !password) {
         alert('Please fill in all fields');
@@ -502,12 +544,17 @@ window.signIn = async function() {
             password
         });
         
+        console.log('Sign in response - data:', data);
+        console.log('Sign in response - error:', error);
+        
         if (error) throw error;
         
         currentUser = data.user;
+        console.log('Signed in successfully:', currentUser.email);
         
         // If we have a selected card, add it
         if (selectedCardForAuth) {
+            console.log('Adding selected card:', selectedCardForAuth);
             // Handle both object format (from QR) and string format (from regular click)
             if (typeof selectedCardForAuth === 'object') {
                 await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId, true);
@@ -535,6 +582,7 @@ window.signIn = async function() {
  * Sign up - Updated to create user profile
  */
 window.signUp = async function() {
+    console.log('Attempting sign up...');
     const nameInput = document.getElementById('signup-name');
     const emailInput = document.getElementById('signup-email');
     const passwordInput = document.getElementById('signup-password');
@@ -547,6 +595,8 @@ window.signUp = async function() {
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value;
+    
+    console.log('Sign up - name:', name, 'email:', email);
     
     if (!name || !email || !password) {
         alert('Please fill in all fields');
@@ -564,14 +614,19 @@ window.signUp = async function() {
             }
         });
         
+        console.log('Sign up response - data:', data);
+        console.log('Sign up response - error:', error);
+        
         if (error) throw error;
         
         currentUser = data.user;
+        console.log('Signed up successfully:', currentUser.email);
         
         // Create user profile entry (same as Flutter app)
         if (currentUser) {
             try {
-                await supabase
+                console.log('Creating user profile...');
+                const { data: profileData, error: profileError } = await supabase
                     .from('user_profiles')
                     .insert({
                         user_id: currentUser.id,
@@ -579,7 +634,8 @@ window.signUp = async function() {
                         updated_at: new Date().toISOString()
                     });
                 
-                console.log('User profile created for:', currentUser.id);
+                console.log('User profile created - data:', profileData);
+                console.log('User profile created - error:', profileError);
             } catch (profileError) {
                 console.error('Error creating user profile:', profileError);
                 // Don't throw - user account is created, profile can be created later
@@ -606,6 +662,7 @@ window.signUp = async function() {
         // If we have a selected card, add it after a short delay
         if (selectedCardForAuth && currentUser) {
             setTimeout(async () => {
+                console.log('Adding selected card after signup:', selectedCardForAuth);
                 // Handle both object format (from QR) and string format (from regular click)
                 if (typeof selectedCardForAuth === 'object') {
                     await getCard(selectedCardForAuth.cardId, selectedCardForAuth.restaurantId, true);
@@ -634,9 +691,11 @@ window.signUp = async function() {
  * Sign out
  */
 window.signOut = async function() {
+    console.log('Signing out...');
     try {
         await supabase.auth.signOut();
         currentUser = null;
+        console.log('Signed out successfully');
         window.location.reload();
     } catch (error) {
         console.error('Sign out error:', error);
@@ -647,6 +706,7 @@ window.signOut = async function() {
  * View my cards - reload page to show updated cards
  */
 window.viewMyCards = function() {
+    console.log('Viewing my cards');
     closeAuthModal();
     window.location.reload();
 }
@@ -659,11 +719,12 @@ function handleQRRedirect() {
     const qrCode = urlParams.get('qr');
     
     if (qrCode) {
-        console.log('QR code detected:', qrCode);
+        console.log('QR code detected in URL:', qrCode);
         
         // Wait for cards to load then show as overlay
         setTimeout(() => {
             const targetCard = document.querySelector(`[data-qr-code="${qrCode}"]`);
+            console.log('Target card found:', targetCard);
             if (targetCard) {
                 // Create overlay
                 const overlay = document.createElement('div');
@@ -709,6 +770,7 @@ function handleQRRedirect() {
                     const restaurantId = targetCard.dataset.restaurantId;
                     if (cardId) {
                         selectedCardForAuth = { cardId, restaurantId };
+                        console.log('Set selected card for auth:', selectedCardForAuth);
                     }
                 }
             }
@@ -720,11 +782,14 @@ function handleQRRedirect() {
  * Set up event listeners
  */
 function setupEventListeners() {
+    console.log('Setting up event listeners...');
+    
     // Search functionality
     const searchInput = document.getElementById('search-programs');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
+            console.log('Search query:', query);
             filterPrograms(query);
         });
     }
@@ -732,6 +797,7 @@ function setupEventListeners() {
     // Location filters
     document.querySelectorAll('.filter-pill').forEach(btn => {
         btn.addEventListener('click', () => {
+            console.log('Filter clicked:', btn.dataset.location || btn.dataset.filter);
             // Update active state
             document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -763,6 +829,7 @@ function setupEventListeners() {
         setTimeout(() => {
             const myCardsBtn = document.querySelector('[data-filter="my-cards"]');
             if (myCardsBtn) {
+                console.log('Auto-clicking My Cards button');
                 myCardsBtn.click();
             }
         }, 100);
@@ -773,6 +840,7 @@ function setupEventListeners() {
  * Filter to show only user's cards
  */
 function filterMyCards() {
+    console.log('Filtering to show only user cards');
     const cards = document.querySelectorAll('.program-card');
     let hasCards = false;
     
@@ -784,6 +852,8 @@ function filterMyCards() {
             card.style.display = 'none';
         }
     });
+    
+    console.log('User has cards:', hasCards);
     
     // Show empty state if user has no cards
     if (!hasCards && currentUser) {
@@ -836,6 +906,7 @@ function filterPrograms(query) {
  * Filter programs by location
  */
 function filterByLocation(location) {
+    console.log('Filtering by location:', location);
     const cards = document.querySelectorAll('.program-card');
     
     cards.forEach(card => {
