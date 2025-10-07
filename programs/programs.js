@@ -68,17 +68,10 @@ async function loadPrograms() {
         // Query the database for active loyalty cards
         const { data: programs, error } = await supabase
             .from('loyalty_cards')
-            .select(`
-                *,
-                restaurants!inner (
-                    name,
-                    address,
-                    city
-                )
-            `)
+            .select('*')
             .eq('is_active', true)
             .not('discovery_qr_code', 'is', null);
-        
+            `)
         if (error) {
             console.error('Database error:', error);
             throw error;
