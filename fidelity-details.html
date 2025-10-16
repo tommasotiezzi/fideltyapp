@@ -3,9 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Why Loyalty Cards Work - Tessere</title>
+    <title>Perché le Carte Fedeltà Funzionano - Loyaly</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .lang-button {
+            padding: 6px 12px;
+            border: 1px solid var(--gray-300);
+            background: white;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .lang-button:hover {
+            border-color: var(--primary-400);
+            color: var(--primary-600);
+        }
+        
+        .lang-button.active {
+            background: var(--primary-600);
+            color: white;
+            border-color: var(--primary-600);
+        }
+        
         .stats-hero {
             padding: 120px 0 60px;
             background: linear-gradient(135deg, var(--primary-100) 0%, var(--bg-primary) 100%);
@@ -86,63 +115,8 @@
             border-bottom: 1px solid var(--gray-100);
         }
         
-        .roi-calculator {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            margin: 60px 0;
-        }
-        
-        .calculator-inputs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .input-group label {
-            font-size: 14px;
-            color: var(--gray-700);
-            margin-bottom: 8px;
-        }
-        
-        .input-group input {
-            padding: 12px;
-            border: 1px solid var(--gray-300);
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        
-        .calculator-result {
-            background: var(--primary-100);
-            padding: 24px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .result-label {
-            color: var(--gray-600);
-            margin-bottom: 8px;
-        }
-        
-        .result-value {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--primary-600);
-        }
-        
         @media (max-width: 768px) {
             .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .calculator-inputs {
                 grid-template-columns: 1fr;
             }
         }
@@ -152,25 +126,28 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
-            <div class="nav-brand">
+            <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
                     <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
                     <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
                     <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
                 </svg>
-                <span>Tessere</span>
+                <span>Loyaly</span>
             </div>
             <div class="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="index.html#features" class="nav-link">Features</a>
-                <a href="index.html#pricing" class="nav-link">Pricing</a>
-                <a href="fidelity-details.html" class="nav-link">Why Loyalty Cards</a>
-                <a href="programs/index.html" class="nav-link">Programs</a>
+                <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+                <a href="index.html#features" class="nav-link" data-i18n="nav.features">Funzionalità</a>
+                <a href="index.html#pricing" class="nav-link" data-i18n="nav.pricing">Prezzi</a>
+                <a href="fidelity-details.html" class="nav-link" data-i18n="nav.why">Perché Carte Fedeltà</a>
+                <a href="programs/index.html" class="nav-link" data-i18n="nav.programs">Programmi</a>
             </div>
             <div class="nav-actions">
-                <button class="btn-text">Sign In</button>
-                <button class="btn btn-primary">Get Started</button>
+                <div class="language-toggle">
+                    <button class="lang-button active" onclick="switchLanguage('it')">IT</button>
+                    <button class="lang-button" onclick="switchLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-primary" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html'" data-i18n="cta.getStarted">Inizia Ora</button>
             </div>
         </div>
     </nav>
@@ -179,11 +156,11 @@
     <section class="stats-hero">
         <div class="container">
             <div class="hero-content">
-                <div class="badge">Data-Driven Insights</div>
-                <h1>Why Loyalty Cards Are Essential for Restaurants</h1>
-                <p class="hero-subtitle">
-                    The numbers speak for themselves. Discover how loyalty cards transform 
-                    restaurant economics and customer relationships.
+                <div class="badge" data-i18n="hero.badge">Dati Concreti</div>
+                <h1 data-i18n="hero.title">Perché le Carte Fedeltà sono Essenziali per i Ristoranti</h1>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">
+                    I numeri parlano chiaro. Scopri come le carte fedeltà trasformano 
+                    l'economia dei ristoranti e le relazioni con i clienti.
                 </p>
             </div>
         </div>
@@ -192,59 +169,59 @@
     <!-- Key Statistics -->
     <section class="container">
         <div class="section-header">
-            <h2>The Impact in Numbers</h2>
-            <p>Real data from successful restaurant loyalty card programs worldwide</p>
+            <h2 data-i18n="stats.title">L'Impatto in Numeri</h2>
+            <p data-i18n="stats.subtitle">Dati reali da programmi fedeltà di successo in tutto il mondo</p>
         </div>
 
         <div class="stats-grid">
             <div class="stat-block">
                 <div class="big-stat">20%</div>
-                <h3>Increase in Visit Frequency</h3>
-                <p class="stat-description">
-                    Loyalty card holders visit restaurants 20% more often than non-members. 
-                    This means a customer who normally visits twice a month will visit 2.4 times 
-                    with a loyalty card.
+                <h3 data-i18n="stats.frequency.title">Aumento della Frequenza di Visite</h3>
+                <p class="stat-description" data-i18n="stats.frequency.description">
+                    I possessori di carte fedeltà visitano i ristoranti il 20% più spesso dei non membri. 
+                    Questo significa che un cliente che normalmente visita due volte al mese, visiterà 2,4 volte 
+                    con una carta fedeltà.
                 </p>
-                <div class="stat-source">Source: National Restaurant Association 2024</div>
+                <div class="stat-source" data-i18n="stats.frequency.source">Fonte: National Restaurant Association 2024</div>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">4.8x</div>
-                <h3>Average ROI</h3>
-                <p class="stat-description">
-                    90% of loyalty card program owners report positive ROI, with the average being 
-                    4.8x. For every €1 invested in loyalty, restaurants see €4.80 in return.
+                <h3 data-i18n="stats.roi.title">ROI Medio</h3>
+                <p class="stat-description" data-i18n="stats.roi.description">
+                    Il 90% dei proprietari di programmi fedeltà riporta un ROI positivo, con una media 
+                    di 4,8x. Per ogni €1 investito in fedeltà, i ristoranti vedono un ritorno di €4,80.
                 </p>
-                <div class="stat-source">Source: Antavo Customer Loyalty Report 2024</div>
+                <div class="stat-source" data-i18n="stats.roi.source">Fonte: Antavo Customer Loyalty Report 2024</div>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">67%</div>
-                <h3>Higher Check Size</h3>
-                <p class="stat-description">
-                    A loyal customer's check will be 67% higher than a first-time guest's. 
-                    Card holders spend more per visit to maximize their rewards.
+                <h3 data-i18n="stats.spend.title">Scontrino Più Alto</h3>
+                <p class="stat-description" data-i18n="stats.spend.description">
+                    Lo scontrino di un cliente fedele sarà il 67% più alto rispetto a quello di un nuovo cliente. 
+                    I possessori di carte spendono di più per visita per massimizzare i loro premi.
                 </p>
-                <div class="stat-source">Source: Incentivio Restaurant Study</div>
+                <div class="stat-source" data-i18n="stats.spend.source">Fonte: Incentivio Restaurant Study</div>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">25-95%</div>
-                <h3>Profit Increase</h3>
-                <p class="stat-description">
-                    A 5% increase in customer retention can boost profits by 25% to 95%. 
-                    Loyalty cards are the most effective retention tool.
+                <h3 data-i18n="stats.profit.title">Aumento dei Profitti</h3>
+                <p class="stat-description" data-i18n="stats.profit.description">
+                    Un aumento del 5% nella fidelizzazione dei clienti può aumentare i profitti dal 25% al 95%. 
+                    Le carte fedeltà sono lo strumento di fidelizzazione più efficace.
                 </p>
-                <div class="stat-source">Source: Harvard Business School</div>
+                <div class="stat-source" data-i18n="stats.profit.source">Fonte: Harvard Business School</div>
             </div>
         </div>
 
         <div class="insight-card">
-            <h4>💡 Key Insight</h4>
-            <p>
-                Members of loyalty card programs generate 12-18% more incremental revenue growth per year 
-                compared to non-members. The top performing loyalty programs boost revenue from customers 
-                who use them by 15-25% annually.
+            <h4 data-i18n="insight.title">💡 Insight Chiave</h4>
+            <p data-i18n="insight.description">
+                I membri dei programmi fedeltà generano dal 12 al 18% in più di crescita incrementale dei ricavi all'anno 
+                rispetto ai non membri. I programmi fedeltà con le migliori prestazioni aumentano i ricavi dai clienti 
+                che li utilizzano del 15-25% annualmente.
             </p>
         </div>
     </section>
@@ -252,49 +229,49 @@
     <!-- Customer Behavior Section -->
     <section class="container">
         <div class="section-header">
-            <h2>How Customers Use Loyalty Cards</h2>
-            <p>Understanding customer behavior helps optimize your program</p>
+            <h2 data-i18n="behavior.title">Come i Clienti Usano le Carte Fedeltà</h2>
+            <p data-i18n="behavior.subtitle">Comprendere il comportamento dei clienti aiuta a ottimizzare il tuo programma</p>
         </div>
 
         <div class="stats-grid">
             <div class="stat-block">
                 <div class="big-stat">47%</div>
-                <h3>Use Cards Multiple Times Monthly</h3>
-                <p class="stat-description">
-                    Almost half of restaurant loyalty card holders use their cards several times 
-                    a month, while 32% use them several times a week.
+                <h3 data-i18n="behavior.usage.title">Usano le Carte Più Volte al Mese</h3>
+                <p class="stat-description" data-i18n="behavior.usage.description">
+                    Quasi la metà dei possessori di carte fedeltà le usa più volte 
+                    al mese, mentre il 32% le usa più volte a settimana.
                 </p>
-                <div class="stat-source">Source: Deloitte Restaurant Study</div>
+                <div class="stat-source" data-i18n="behavior.usage.source">Fonte: Deloitte Restaurant Study</div>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">3.6</div>
-                <h3>Average Cards Per Person</h3>
-                <p class="stat-description">
-                    Customers sign up for an average of 3.6 restaurant loyalty cards. 
-                    Gen Z averages 4.4 cards, showing higher engagement.
+                <h3 data-i18n="behavior.cards.title">Carte Medie per Persona</h3>
+                <p class="stat-description" data-i18n="behavior.cards.description">
+                    I clienti si iscrivono in media a 3,6 programmi fedeltà di ristoranti. 
+                    La Gen Z ha in media 4,4 carte, mostrando un coinvolgimento maggiore.
                 </p>
-                <div class="stat-source">Source: National Restaurant Association</div>
+                <div class="stat-source" data-i18n="behavior.cards.source">Fonte: National Restaurant Association</div>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">81%</div>
-                <h3>Would Join If Offered</h3>
-                <p class="stat-description">
-                    Among consumers not currently enrolled in loyalty programs, 81% say they'd 
-                    participate if offered at their favorite restaurant.
+                <h3 data-i18n="behavior.join.title">Si Unirebbe se Offerto</h3>
+                <p class="stat-description" data-i18n="behavior.join.description">
+                    Tra i consumatori attualmente non iscritti a programmi fedeltà, l'81% dichiara che 
+                    parteciperebbe se offerto nel loro ristorante preferito.
                 </p>
-                <div class="stat-source">Source: Restaurant Technology Report 2024</div>
+                <div class="stat-source" data-i18n="behavior.join.source">Fonte: Restaurant Technology Report 2024</div>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">35%</div>
-                <h3>Would Spend More</h3>
-                <p class="stat-description">
-                    Customers would increase their spending at a restaurant by 35% if it 
-                    offered an appealing loyalty card program.
+                <h3 data-i18n="behavior.increase.title">Spenderebbe di Più</h3>
+                <p class="stat-description" data-i18n="behavior.increase.description">
+                    I clienti aumenterebbero la loro spesa in un ristorante del 35% se 
+                    offrisse un programma fedeltà attraente.
                 </p>
-                <div class="stat-source">Source: National Restaurant Association</div>
+                <div class="stat-source" data-i18n="behavior.increase.source">Fonte: National Restaurant Association</div>
             </div>
         </div>
     </section>
@@ -302,46 +279,46 @@
     <!-- Comparison Table -->
     <section class="container">
         <div class="section-header">
-            <h2>With vs Without Loyalty Cards</h2>
-            <p>The measurable difference in customer behavior</p>
+            <h2 data-i18n="comparison.title">Con vs Senza Carte Fedeltà</h2>
+            <p data-i18n="comparison.subtitle">La differenza misurabile nel comportamento dei clienti</p>
         </div>
 
         <table class="comparison-table" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>Metric</th>
-                    <th>Without Loyalty Card</th>
-                    <th>With Loyalty Card</th>
-                    <th>Improvement</th>
+                    <th data-i18n="comparison.metric">Metrica</th>
+                    <th data-i18n="comparison.without">Senza Carta Fedeltà</th>
+                    <th data-i18n="comparison.with">Con Carta Fedeltà</th>
+                    <th data-i18n="comparison.improvement">Miglioramento</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Average Monthly Visits</strong></td>
-                    <td>2 visits</td>
-                    <td>2.4 visits</td>
+                    <td><strong data-i18n="comparison.visits">Visite Mensili Medie</strong></td>
+                    <td data-i18n="comparison.visits.without">2 visite</td>
+                    <td data-i18n="comparison.visits.with">2,4 visite</td>
                     <td style="color: var(--success);">+20%</td>
                 </tr>
                 <tr>
-                    <td><strong>Average Check Size</strong></td>
+                    <td><strong data-i18n="comparison.check">Scontrino Medio</strong></td>
                     <td>€15</td>
                     <td>€18</td>
                     <td style="color: var(--success);">+20%</td>
                 </tr>
                 <tr>
-                    <td><strong>Customer Lifetime</strong></td>
-                    <td>12 months</td>
-                    <td>36 months</td>
+                    <td><strong data-i18n="comparison.lifetime">Durata Cliente</strong></td>
+                    <td data-i18n="comparison.lifetime.without">12 mesi</td>
+                    <td data-i18n="comparison.lifetime.with">36 mesi</td>
                     <td style="color: var(--success);">+200%</td>
                 </tr>
                 <tr>
-                    <td><strong>Annual Revenue per Customer</strong></td>
+                    <td><strong data-i18n="comparison.revenue">Ricavi Annuali per Cliente</strong></td>
                     <td>€360</td>
                     <td>€518</td>
                     <td style="color: var(--success);">+44%</td>
                 </tr>
                 <tr>
-                    <td><strong>Referral Rate</strong></td>
+                    <td><strong data-i18n="comparison.referral">Tasso di Referral</strong></td>
                     <td>10%</td>
                     <td>73%</td>
                     <td style="color: var(--success);">+630%</td>
@@ -350,118 +327,47 @@
         </table>
     </section>
 
-    <!-- ROI Calculator -->
-    <section class="container">
-        <div class="roi-calculator">
-            <h2 style="text-align: center; margin-bottom: 32px;">Calculate Your Potential ROI</h2>
-            
-            <div style="background: var(--gray-50); padding: 20px; border-radius: 8px; margin-bottom: 32px;">
-                <h4 style="margin-bottom: 12px;">📊 Calculation Methodology</h4>
-                <p style="font-size: 14px; color: var(--gray-700); line-height: 1.6;">
-                    Based on industry averages from our research above:
-                </p>
-                <ul style="font-size: 14px; color: var(--gray-600); margin: 12px 0; padding-left: 20px;">
-                    <li><strong>20% increase in visit frequency</strong> (Source: National Restaurant Association)</li>
-                    <li><strong>20% increase in average spend</strong> (Source: Paytronix Study)</li>
-                    <li>Combined effect: 44% revenue increase from loyalty card holders</li>
-                </ul>
-                <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-200);">
-                    ⚠️ <strong>Disclaimer:</strong> These are estimated projections based on industry averages. 
-                    Actual results may vary depending on your specific implementation, customer base, and market conditions. 
-                    This calculator provides estimates only and should not be considered a guarantee of performance.
-                </p>
-            </div>
-            
-            <div class="calculator-inputs">
-                <div class="input-group">
-                    <label for="customers">Number of Active Customers</label>
-                    <input type="number" id="customers" value="100" onchange="calculateROI()">
-                </div>
-                <div class="input-group">
-                    <label for="avgSpend">Average Spend per Visit (€)</label>
-                    <input type="number" id="avgSpend" value="15" onchange="calculateROI()">
-                </div>
-                <div class="input-group">
-                    <label for="monthlyVisits">Current Monthly Visits per Customer</label>
-                    <input type="number" id="monthlyVisits" value="2" step="0.1" onchange="calculateROI()">
-                </div>
-                <div class="input-group">
-                    <label for="programCost">Tessere Monthly Cost (€)</label>
-                    <input type="number" id="programCost" value="23.30" readonly style="background: var(--gray-50);">
-                </div>
-            </div>
-            
-            <div class="calculator-result">
-                <div class="result-label">Estimated Additional Monthly Revenue*</div>
-                <div class="result-value" id="additionalRevenue">€600</div>
-                <div style="margin-top: 16px;">
-                    <div class="result-label">Estimated ROI*</div>
-                    <div style="font-size: 24px; color: var(--success); font-weight: 700;" id="roiPercent">2,475%</div>
-                </div>
-                <p style="font-size: 11px; color: var(--gray-500); margin-top: 16px; text-align: center;">
-                    *Based on industry average improvements. Individual results will vary.
-                </p>
-            </div>
-            
-            <div style="background: var(--primary-50); padding: 20px; border-radius: 8px; margin-top: 24px;">
-                <h4 style="color: var(--primary-600); margin-bottom: 12px;">📈 How We Calculate</h4>
-                <div style="font-size: 14px; color: var(--gray-700); line-height: 1.8;">
-                    <strong>Current Monthly Revenue:</strong><br>
-                    100 customers × €15/visit × 2 visits = €3,000<br><br>
-                    
-                    <strong>With Loyalty Cards:</strong><br>
-                    100 customers × €18/visit (+20%) × 2.4 visits (+20%) = €4,320<br><br>
-                    
-                    <strong>Additional Revenue:</strong> €1,320<br>
-                    <strong>Program Cost:</strong> €23.30<br>
-                    <strong>Net Gain:</strong> €1,296.70<br>
-                    <strong>ROI:</strong> (€1,296.70 / €23.30) × 100 = 5,565%
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Success Factors -->
     <section class="container">
         <div class="section-header">
-            <h2>Why Digital Beats Paper</h2>
-            <p>The advantages of digital loyalty cards over traditional stamp cards</p>
+            <h2 data-i18n="digital.title">Perché il Digitale Batte la Carta</h2>
+            <p data-i18n="digital.subtitle">I vantaggi delle carte fedeltà digitali rispetto alle tessere tradizionali</p>
         </div>
 
         <div class="stats-grid">
             <div class="stat-block">
                 <div class="big-stat">70%</div>
-                <h3>Paper Cards Get Lost</h3>
-                <p class="stat-description">
-                    7 out of 10 paper loyalty cards are lost or forgotten, meaning customers 
-                    never complete them. Digital cards are always in their phone.
+                <h3 data-i18n="digital.lost.title">Tessere Cartacee si Perdono</h3>
+                <p class="stat-description" data-i18n="digital.lost.description">
+                    7 tessere fedeltà cartacee su 10 si perdono o vengono dimenticate, il che significa che i clienti 
+                    non le completano mai. Le carte digitali sono sempre nel loro telefono.
                 </p>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">3s</div>
-                <h3>Scan Time</h3>
-                <p class="stat-description">
-                    Digital QR scanning takes just 3 seconds versus manual stamping and card 
-                    management. Faster service means happier customers.
+                <h3 data-i18n="digital.scan.title">Tempo di Scansione</h3>
+                <p class="stat-description" data-i18n="digital.scan.description">
+                    La scansione QR digitale richiede solo 3 secondi rispetto alla timbratura manuale e alla gestione 
+                    delle carte. Un servizio più veloce significa clienti più felici.
                 </p>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">100%</div>
-                <h3>Data Capture</h3>
-                <p class="stat-description">
-                    Every digital interaction is tracked, giving you insights into customer 
-                    behavior. Paper cards provide zero analytics.
+                <h3 data-i18n="digital.data.title">Raccolta Dati</h3>
+                <p class="stat-description" data-i18n="digital.data.description">
+                    Ogni interazione digitale viene tracciata, fornendoti informazioni sul comportamento 
+                    dei clienti. Le tessere cartacee non forniscono alcuna analisi.
                 </p>
             </div>
 
             <div class="stat-block">
                 <div class="big-stat">97%</div>
-                <h3>Push Notification Open Rate</h3>
-                <p class="stat-description">
-                    Digital programs enable instant communication. Push notifications have 
-                    97% open rates versus 20% for email.
+                <h3 data-i18n="digital.notification.title">Tasso di Apertura Notifiche Push</h3>
+                <p class="stat-description" data-i18n="digital.notification.description">
+                    I programmi digitali consentono comunicazione istantanea. Le notifiche push hanno 
+                    un tasso di apertura del 97% rispetto al 20% delle email.
                 </p>
             </div>
         </div>
@@ -471,14 +377,11 @@
     <section class="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to boost your revenue by 20%?</h2>
-                <p>Join forward-thinking restaurants already using digital loyalty</p>
+                <h2 data-i18n="cta.title">Pronto ad aumentare i tuoi ricavi del 20%?</h2>
+                <p data-i18n="cta.subtitle">Unisciti ai ristoranti lungimiranti che già utilizzano la fedeltà digitale</p>
                 <div class="cta-actions">
-                    <button class="btn btn-primary btn-large" onclick="window.location.href='index.html#pricing'">
-                        Start Now - €99
-                    </button>
-                    <button class="btn btn-secondary btn-large">
-                        Download ROI Report
+                    <button class="btn btn-primary btn-large" onclick="window.location.href='index.html#pricing'" data-i18n="cta.button">
+                        Inizia Ora
                     </button>
                 </div>
             </div>
@@ -496,60 +399,22 @@
                         <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
                         <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
                     </svg>
-                    <span>Tessere</span>
+                    <span>Loyaly</span>
                 </div>
                 <div class="footer-links">
-                    <a href="#">Documentation</a>
-                    <a href="#">Support</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
+                    <a href="mailto:support@loyaly.eu" data-i18n="footer.support">Supporto</a>
+                    <a href="privacy.html" data-i18n="footer.privacy">Privacy</a>
+                    <a href="terms.html" data-i18n="footer.terms">Termini</a>
+                    <a href="cookies.html" data-i18n="footer.cookies">Cookie</a>
                 </div>
                 <div class="footer-copyright">
-                    © 2024 Tessere. All rights reserved.
+                    © 2025 Loyaly. <span data-i18n="footer.rights">Tutti i diritti riservati.</span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        function calculateROI() {
-            const customers = parseFloat(document.getElementById('customers').value) || 0;
-            const avgSpend = parseFloat(document.getElementById('avgSpend').value) || 0;
-            const monthlyVisits = parseFloat(document.getElementById('monthlyVisits').value) || 0;
-            const programCost = 23.30;
-            
-            // Calculate current revenue
-            const currentRevenue = customers * avgSpend * monthlyVisits;
-            
-            // With loyalty program (20% increase in visits, 20% increase in spend)
-            const newVisits = monthlyVisits * 1.2;
-            const newSpend = avgSpend * 1.2;
-            const newRevenue = customers * newSpend * newVisits;
-            
-            // Additional revenue
-            const additionalRevenue = newRevenue - currentRevenue;
-            
-            // ROI calculation
-            const roi = ((additionalRevenue - programCost) / programCost) * 100;
-            
-            // Update display
-            document.getElementById('additionalRevenue').textContent = '€' + additionalRevenue.toFixed(0);
-            document.getElementById('roiPercent').textContent = roi.toFixed(0) + '%';
-        }
-        
-        // Calculate on load
-        calculateROI();
-        
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
+    <script src="i18n-fidelity.js"></script>
 </body>
 </html>
