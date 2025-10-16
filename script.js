@@ -1,3 +1,65 @@
+// Pricing type toggle
+function togglePricingType(type) {
+    const monthlyGrid = document.getElementById('pricing-monthly');
+    const meteredGrid = document.getElementById('pricing-metered');
+    const buttons = document.querySelectorAll('.pricing-toggle-btn');
+    
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    if (type === 'monthly') {
+        monthlyGrid.style.display = 'grid';
+        meteredGrid.style.display = 'none';
+        buttons[0].classList.add('active');
+    } else {
+        monthlyGrid.style.display = 'none';
+        meteredGrid.style.display = 'grid';
+        buttons[1].classList.add('active');
+    }
+}
+
+// Language switching
+function switchLanguage(lang) {
+    const buttons = document.querySelectorAll('.lang-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+    
+    // Save preference
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Update all translatable elements
+    updateTranslations(lang);
+}
+
+// Update translations based on language
+function updateTranslations(lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+            element.textContent = translation;
+        }
+    });
+}
+
+// Check for saved language preference on load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang && savedLang !== 'it') {
+        switchLanguage(savedLang);
+        // Update button states
+        document.querySelectorAll('.lang-button').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent === savedLang.toUpperCase()) {
+                btn.classList.add('active');
+            }
+        });
+    }
+});
+
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -170,21 +232,6 @@ document.querySelectorAll('.metric-value').forEach(metric => {
     metricsObserver.observe(metric);
 });
 
-// Mobile menu toggle (placeholder)
-const mobileMenuToggle = () => {
-    console.log('Mobile menu toggle - implement if needed');
-};
-
-// CTA button actions
-document.querySelectorAll('.btn-primary').forEach(button => {
-    if (button.textContent.includes('Get Started') || button.textContent.includes('Start Free Trial')) {
-        button.addEventListener('click', () => {
-            // Scroll to pricing or open signup modal
-            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-});
-
 // Add hover effect to loyalty card
 const loyaltyCard = document.querySelector('.loyalty-card');
 if (loyaltyCard) {
@@ -196,4 +243,4 @@ if (loyaltyCard) {
     });
 }
 
-console.log('Tessere website initialized');
+console.log('Loyaly website initialized');
