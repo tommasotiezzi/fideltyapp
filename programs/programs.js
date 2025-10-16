@@ -17,12 +17,55 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Set up event listeners
     setupEventListeners();
     
-    // Check for QR redirect
-    handleQRRedirect();
+    // Check for QR redirect AND track the scan
+    await handleQRRedirect();
     
     // Initialize App CTA
     initializeAppCTA();
 });
+
+/**
+ * Track QR code scan in database
+ */
+async function trackQRScan(loyaltyCardId, userId = null) {
+    try {
+        console.log('Tracking QR scan for card:', loyaltyCardId, 'User:', userId);
+        
+        // Get IP address and user agent
+        const userAgent = navigator.userAgent;
+        let ipAddress = null;
+        
+        // Try to get IP address (this is optional and may not work due to CORS)
+        try {
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            ipAddress = ipData.ip;
+        } catch (e) {
+            console.log('Could not fetch IP address:', e);
+        }
+        
+        // Insert scan record
+        const { data, error } = await supabase
+            .from('discovery_scans')
+            .insert({
+                loyalty_card_id: loyaltyCardId,
+                user_id: userId,
+                ip_address: ipAddress,
+                user_agent: userAgent,
+                converted_to_signup: userId !== null,
+                scanned_at: new Date().toISOString()
+            });
+        
+        if (error) {
+            console.error('Error tracking QR scan:', error);
+        } else {
+            console.log('QR scan tracked successfully:', data);
+        }
+        
+    } catch (error) {
+        console.error('Error in trackQRScan:', error);
+    }
+}
 
 /**
  * Check if user is authenticated
@@ -297,6 +340,9 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate) {
         
         console.log('Card added successfully!');
         
+        // Update discovery_scans to mark as converted
+        await updateQRScanConversion(cardId, currentUser.id);
+        
         if (!skipUIUpdate) {
             const signinForm = document.getElementById('signin-form');
             const signupForm = document.getElementById('signup-form');
@@ -316,6 +362,51 @@ window.getCard = async function(cardId, restaurantId, skipUIUpdate) {
         if (!skipUIUpdate) {
             alert('Error adding card. Please try again.');
         }
+    }
+}
+
+/**
+ * Update the most recent QR scan to mark it as converted
+ */
+async function updateQRScanConversion(loyaltyCardId, userId) {
+    try {
+        console.log('Updating QR scan conversion for card:', loyaltyCardId, 'User:', userId);
+        
+        // Find the most recent scan for this card without a user_id
+        const { data: scans, error: fetchError } = await supabase
+            .from('discovery_scans')
+            .select('id')
+            .eq('loyalty_card_id', loyaltyCardId)
+            .is('user_id', null)
+            .order('scanned_at', { ascending: false })
+            .limit(1);
+        
+        if (fetchError) {
+            console.error('Error fetching scan:', fetchError);
+            return;
+        }
+        
+        if (scans && scans.length > 0) {
+            const scanId = scans[0].id;
+            
+            // Update it with user_id and mark as converted
+            const { error: updateError } = await supabase
+                .from('discovery_scans')
+                .update({
+                    user_id: userId,
+                    converted_to_signup: true
+                })
+                .eq('id', scanId);
+            
+            if (updateError) {
+                console.error('Error updating scan conversion:', updateError);
+            } else {
+                console.log('QR scan marked as converted successfully');
+            }
+        }
+        
+    } catch (error) {
+        console.error('Error in updateQRScanConversion:', error);
     }
 }
 
@@ -543,12 +634,32 @@ window.viewMyCards = function() {
     window.location.reload();
 }
 
-function handleQRRedirect() {
+async function handleQRRedirect() {
     const urlParams = new URLSearchParams(window.location.search);
     const qrCode = urlParams.get('qr');
     
     if (qrCode) {
         console.log('QR code detected in URL:', qrCode);
+        
+        // Find the loyalty card by QR code
+        try {
+            const { data: loyaltyCard, error } = await supabase
+                .from('loyalty_cards')
+                .select('id')
+                .eq('discovery_qr_code', qrCode)
+                .single();
+            
+            if (error) {
+                console.error('Error finding loyalty card:', error);
+            } else if (loyaltyCard) {
+                console.log('Found loyalty card for QR:', loyaltyCard.id);
+                
+                // Track the QR scan
+                await trackQRScan(loyaltyCard.id, currentUser ? currentUser.id : null);
+            }
+        } catch (error) {
+            console.error('Error in QR tracking:', error);
+        }
         
         setTimeout(function() {
             const targetCard = document.querySelector('[data-qr-code="' + qrCode + '"]');
