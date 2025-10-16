@@ -57,6 +57,10 @@ const translations = {
         'pricing.perMonth': '/mese',
         'pricing.perStamp': '/timbro',
         
+        'pricing.free.title': 'Gratis',
+        'pricing.free.note': 'Prova prima di impegnarti',
+        'pricing.free.cta': 'Inizia Gratis',
+        
         'pricing.basic.title': 'Basic - Mensile',
         'pricing.basic.titleMetered': 'Basic - Paga per Timbro',
         'pricing.basic.note': 'Perfetto per singole location',
@@ -69,14 +73,19 @@ const translations = {
         
         'pricing.features.loyaltyCard': '1 carta fedeltà',
         'pricing.features.loyaltyCards3': '3 carte fedeltà',
+        'pricing.features.onePromotion': '1 promozione attiva',
         'pricing.features.promotions': '3 promozioni attive',
         'pricing.features.promotions9': '9 promozioni attive',
+        'pricing.features.oneEvent': '1 evento attivo',
         'pricing.features.events': '2 eventi attivi',
         'pricing.features.events6': '6 eventi attivi',
         'pricing.features.notifications': '2 notifiche/mese',
         'pricing.features.notifications6': '6 notifiche/mese',
         'pricing.features.unlimitedStamps': 'Timbri illimitati',
+        'pricing.features.unlimitedCustomers': 'Clienti illimitati',
+        'pricing.features.basicAnalytics': 'Analisi base',
         'pricing.features.advancedAnalytics': 'Analisi avanzate',
+        'pricing.features.noLoyaltyCards': 'Nessuna carta fedeltà',
         'pricing.features.payPerStamp': 'Paga per timbro usato',
         
         'pricing.activation': 'Attivazione (una tantum)',
@@ -88,11 +97,11 @@ const translations = {
         'cta.getStartedPrice': 'Inizia Ora - €29.90',
         'cta.getStartedPricePremium': 'Inizia Ora - €49.90',
         'cta.title': 'Pronto a digitalizzare il tuo programma fedeltà?',
-        'cta.subtitle': 'Inizia oggi',
         
         'footer.support': 'Supporto',
         'footer.privacy': 'Privacy',
         'footer.terms': 'Termini',
+        'footer.cookies': 'Cookie',
         'footer.rights': 'Tutti i diritti riservati.'
     },
     en: {
@@ -151,6 +160,10 @@ const translations = {
         'pricing.flexible': 'Maximum Flexibility',
         'pricing.perMonth': '/month',
         'pricing.perStamp': '/stamp',
+        
+        'pricing.free.title': 'Free',
+        'pricing.free.note': 'Try before you commit',
+        'pricing.free.cta': 'Start Free',
         
         'pricing.basic.title': 'Basic - Monthly',
         'pricing.basic.titleMetered': 'Basic - Pay-Per-Stamp',
