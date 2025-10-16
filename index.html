@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tessere - Digital Loyalty Cards Platform</title>
+    <title>Loyaly - Digital Loyalty Cards Platform</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,18 +17,16 @@
                     <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
                     <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
                 </svg>
-                <span>Tessere</span>
+                <span>Loyaly</span>
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#pricing" class="nav-link">Pricing</a>
-                <a href="fidelity-details.html" class="nav-link">Why Loyalty Cards</a>
                 <a href="programs/index.html" class="nav-link">Programs</a>
             </div>
             <div class="nav-actions">
-                <button class="btn-text">Sign In</button>
-                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-primary" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html'">Get Started</button>
             </div>
         </div>
     </nav>
@@ -43,18 +41,15 @@
                     Boost customer retention with zero friction.
                 </p>
                 <div class="hero-actions">
-                    <button class="btn btn-primary btn-large">
+                    <button class="btn btn-primary btn-large" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html'">
                         Start Free Trial
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
                         </svg>
                     </button>
-                    <button class="btn btn-secondary btn-large">
-                        View Demo
-                    </button>
                 </div>
                 <p class="hero-note">
-                    No credit card required · 3 months included with activation
+                    2 months included with activation
                 </p>
             </div>
             <div class="hero-visual">
@@ -96,8 +91,8 @@
                 <div class="loyalty-card-preview">
                     <div class="loyalty-card">
                         <div class="card-header">
-                            <div class="card-logo">B</div>
-                            <div class="card-name">Banana</div>
+                            <div class="card-logo">L</div>
+                            <div class="card-name">Loyaly</div>
                         </div>
                         <div class="stamps-grid">
                             <div class="stamp filled">✓</div>
@@ -113,33 +108,9 @@
                         </div>
                         <div class="card-footer">
                             <span class="card-reward">Reward:</span>
-                            <span class="card-reward-text">Free Pizza</span>
+                            <span class="card-reward-text">Free Item</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Metrics Section -->
-    <section class="metrics">
-        <div class="container">
-            <div class="metrics-grid">
-                <div class="metric">
-                    <div class="metric-value">50+</div>
-                    <div class="metric-label">Active Restaurants</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">5K+</div>
-                    <div class="metric-label">Digital Cards Created</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">95%</div>
-                    <div class="metric-label">Customer Retention</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">3s</div>
-                    <div class="metric-label">Average Scan Time</div>
                 </div>
             </div>
         </div>
@@ -176,7 +147,8 @@
                     <p>Track customer behavior and loyalty program performance.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card" style="opacity: 0.6; position: relative;">
+                    <div style="position: absolute; top: 12px; right: 12px; background: #f59e0b; color: white; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">COMING SOON</div>
                     <div class="feature-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -253,7 +225,7 @@
         </div>
     </section>
 
- <!-- Pricing Section -->
+    <!-- Pricing Section -->
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-header">
@@ -309,18 +281,17 @@
                     </ul>
                     
                     <div class="pricing-cta">
-                        <button class="btn btn-secondary btn-full" onclick="window.location.href='https://app.tessere.it/welcome?plan=free'">
+                        <button class="btn btn-secondary btn-full" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html?plan=free'">
                             Start Free
                         </button>
-                        <p class="pricing-note">No credit card required</p>
                     </div>
                 </div>
 
-                <!-- Basic Plan -->
+                <!-- Basic Monthly Plan -->
                 <div class="pricing-card featured">
                     <div class="pricing-badge">Most Popular</div>
                     <div class="pricing-header">
-                        <h3>Basic</h3>
+                        <h3>Basic - Monthly</h3>
                         <div class="price">
                             <span class="price-currency">€</span>
                             <span class="price-amount">9.90</span>
@@ -358,7 +329,7 @@
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Real-time analytics
+                            Unlimited stamps
                         </li>
                     </ul>
                     
@@ -377,16 +348,82 @@
                                 <span class="price-value">€9.90</span>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-full" onclick="window.location.href='https://app.tessere.it/welcome?plan=basic'">
+                        <button class="btn btn-primary btn-full" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html?plan=basic&billing=monthly'">
                             Get Started - €29.90
                         </button>
                     </div>
                 </div>
 
-                <!-- Premium Plan -->
+                <!-- Basic Pay-Per-Stamp Plan -->
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3>Premium</h3>
+                        <h3>Basic - Pay-Per-Stamp</h3>
+                        <div class="price">
+                            <span class="price-currency">€</span>
+                            <span class="price-amount">0.05</span>
+                            <span class="price-period">/stamp</span>
+                        </div>
+                        <p class="price-note">Pay only for what you use</p>
+                    </div>
+                    
+                    <ul class="pricing-features">
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <strong>1 loyalty card</strong>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            3 promotions active
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            2 events active
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            2 notifications/month
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            Pay per stamp used
+                        </li>
+                    </ul>
+                    
+                    <div class="pricing-cta">
+                        <div class="price-breakdown">
+                            <div class="price-row">
+                                <span>Activation (one-time)</span>
+                                <span class="price-value">€29.90</span>
+                            </div>
+                            <div class="price-row highlight">
+                                <span>First 2 months</span>
+                                <span class="price-value">FREE</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Then per stamp</span>
+                                <span class="price-value">€0.05</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html?plan=basic&billing=metered'">
+                            Get Started - €29.90
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Monthly Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Premium - Monthly</h3>
                         <div class="price">
                             <span class="price-currency">€</span>
                             <span class="price-amount">14.90</span>
@@ -430,7 +467,7 @@
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Priority support
+                            Unlimited stamps
                         </li>
                     </ul>
                     
@@ -449,20 +486,22 @@
                                 <span class="price-value">€14.90</span>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-full" onclick="window.location.href='https://app.tessere.it/welcome?plan=premium'">
+                        <button class="btn btn-primary btn-full" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html?plan=premium&billing=monthly'">
                             Get Started - €49.90
                         </button>
                     </div>
                 </div>
 
-                <!-- Enterprise Plan -->
+                <!-- Premium Pay-Per-Stamp Plan -->
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3>Enterprise</h3>
+                        <h3>Premium - Pay-Per-Stamp</h3>
                         <div class="price">
-                            <span class="price-custom">Custom</span>
+                            <span class="price-currency">€</span>
+                            <span class="price-amount">0.055</span>
+                            <span class="price-period">/stamp</span>
                         </div>
-                        <p class="price-note">For chains & franchises</p>
+                        <p class="price-note">Maximum flexibility</p>
                     </div>
                     
                     <ul class="pricing-features">
@@ -470,45 +509,58 @@
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            <strong>Unlimited cards</strong>
+                            <strong>3 loyalty cards</strong>
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Unlimited promotions
+                            9 promotions active
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Unlimited events
+                            6 events active
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Unlimited notifications
+                            6 notifications/month
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Custom integrations
+                            Advanced analytics
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            Dedicated account manager
+                            Pay per stamp used
                         </li>
                     </ul>
                     
                     <div class="pricing-cta">
-                        <button class="btn btn-secondary btn-full" onclick="window.location.href='https://app.tessere.it/welcome?plan=enterprise'">
-                            Contact Sales
+                        <div class="price-breakdown">
+                            <div class="price-row">
+                                <span>Activation (one-time)</span>
+                                <span class="price-value">€49.90</span>
+                            </div>
+                            <div class="price-row highlight">
+                                <span>First 2 months</span>
+                                <span class="price-value">FREE</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Then per stamp</span>
+                                <span class="price-value">€0.055</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html?plan=premium&billing=metered'">
+                            Get Started - €49.90
                         </button>
-                        <p class="pricing-note">Custom pricing available</p>
                     </div>
                 </div>
             </div>
@@ -520,13 +572,10 @@
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to digitize your loyalty program?</h2>
-                <p>Join 50+ restaurants already using Tessere</p>
+                <p>Start your free trial today</p>
                 <div class="cta-actions">
-                    <button class="btn btn-primary btn-large">
+                    <button class="btn btn-primary btn-large" onclick="window.location.href='https://fideltyapp-admin.vercel.app/auth/welcome.html'">
                         Start Free Trial
-                    </button>
-                    <button class="btn btn-secondary btn-large">
-                        Book a Demo
                     </button>
                 </div>
             </div>
@@ -544,16 +593,15 @@
                         <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
                         <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
                     </svg>
-                    <span>Tessere</span>
+                    <span>Loyaly</span>
                 </div>
                 <div class="footer-links">
-                    <a href="#">Documentation</a>
-                    <a href="#">Support</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
+                    <a href="mailto:support@loyaly.eu">Support</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="terms.html">Terms</a>
                 </div>
                 <div class="footer-copyright">
-                    © 2024 Tessere. All rights reserved.
+                    © 2025 Loyaly. All rights reserved.
                 </div>
             </div>
         </div>
