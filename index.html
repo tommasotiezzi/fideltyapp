@@ -6,36 +6,6 @@
     <title>Loyaly - Piattaforma Digitale per Carte Fedeltà</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Language Toggle Styles */
-        .language-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .lang-button {
-            padding: 6px 12px;
-            border: 1px solid var(--gray-300);
-            background: white;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--gray-600);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .lang-button:hover {
-            border-color: var(--primary-400);
-            color: var(--primary-600);
-        }
-        
-        .lang-button.active {
-            background: var(--primary-600);
-            color: white;
-            border-color: var(--primary-600);
-        }
-        
         /* Pricing Toggle Styles */
         .pricing-toggle-container {
             display: flex;
@@ -45,18 +15,20 @@
         
         .pricing-toggle {
             display: inline-flex;
-            background: var(--gray-100);
-            padding: 4px;
-            border-radius: 8px;
-            gap: 4px;
+            background: white;
+            padding: 6px;
+            border-radius: 12px;
+            gap: 6px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-100);
         }
         
         .pricing-toggle-btn {
-            padding: 10px 24px;
+            padding: 12px 28px;
             background: transparent;
             border: none;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--gray-600);
             cursor: pointer;
@@ -64,16 +36,16 @@
         }
         
         .pricing-toggle-btn.active {
-            background: white;
-            color: var(--primary-600);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background: var(--primary-600);
+            color: var(--gray-900);
+            box-shadow: var(--shadow-sm);
         }
         
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1200px;
+            gap: 32px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
@@ -88,13 +60,9 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
-            <div class="nav-brand">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                </svg>
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <!-- PLACEHOLDER: Replace with your logo path -->
+                <img src="/assets/logo-icon.png" alt="Loyaly Logo">
                 <span>Loyaly</span>
             </div>
             <div class="nav-menu">
@@ -147,17 +115,17 @@
                             <div class="stat-card">
                                 <div class="stat-value">4</div>
                                 <div class="stat-label" data-i18n="stats.activeCustomers">Clienti Attivi</div>
-                                <div class="stat-badge positive">+100%</div>
+                                <div class="stat-badge positive">100%</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-value">37</div>
                                 <div class="stat-label" data-i18n="stats.stampsGiven">Timbri Dati</div>
-                                <div class="stat-badge positive">+100%</div>
+                                <div class="stat-badge positive">100%</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-value">2</div>
                                 <div class="stat-label" data-i18n="stats.rewards">Premi</div>
-                                <div class="stat-badge positive">+100%</div>
+                                <div class="stat-badge positive">100%</div>
                             </div>
                         </div>
                         <div class="chart-container">
@@ -730,12 +698,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                        <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    </svg>
+                    <!-- PLACEHOLDER: Replace with your logo path -->
+                    <img src="/assets/logo-icon.png" alt="Loyaly Logo">
                     <span>Loyaly</span>
                 </div>
                 <div class="footer-links">
