@@ -6,39 +6,54 @@
 }
 
 :root {
-    /* Yellow Palette - From Brand Identity */
-    --primary-600: #feda21;
-    --primary-500: #feda21;
-    --primary-400: #ffe86d;
-    --primary-300: #fff3b5;
-    --primary-200: #fef7cd;
-    --primary-100: #fffbeb;
-    --primary-50: #fffef7;
+    /* Yellow Palette - Professional with high contrast */
+    --primary-900: #8B6914; /* Dark gold for text on light backgrounds */
+    --primary-800: #B8860B; /* Darker gold */
+    --primary-700: #DAA520; /* Goldenrod - great for hover states */
+    --primary-600: #FFC107; /* Vibrant amber - main brand color */
+    --primary-500: #FFCA28; /* Bright yellow */
+    --primary-400: #FFD54F; /* Light yellow */
+    --primary-300: #FFE082; /* Lighter yellow */
+    --primary-200: #FFECB3; /* Very light yellow */
+    --primary-100: #FFF8E1; /* Subtle yellow background */
+    --primary-50: #FFFDF7; /* Almost white yellow tint */
     
-    /* Grays - Softer for trust */
-    --gray-900: #1a1a1a;
-    --gray-800: #2d2d2d;
-    --gray-700: #4a4a4a;
-    --gray-600: #6b6b6b;
-    --gray-500: #8a8a8a;
-    --gray-400: #a8a8a8;
-    --gray-300: #d4d4d4;
-    --gray-200: #e8e8e8;
-    --gray-100: #f5f5f5;
-    --gray-50: #fafafa;
+    /* Complementary Dark Accents */
+    --accent-dark: #2D3748; /* Dark slate for depth */
+    --accent-darker: #1A202C; /* Darker slate */
     
-    /* Semantic */
+    /* Grays - Professional and clear */
+    --gray-900: #111827;
+    --gray-800: #1F2937;
+    --gray-700: #374151;
+    --gray-600: #4B5563;
+    --gray-500: #6B7280;
+    --gray-400: #9CA3AF;
+    --gray-300: #D1D5DB;
+    --gray-200: #E5E7EB;
+    --gray-100: #F3F4F6;
+    --gray-50: #F9FAFB;
+    
+    /* Semantic Colors */
     --success: #10B981;
     --success-bg: #D1FAE5;
+    --warning: #F59E0B;
+    --warning-bg: #FEF3C7;
     
     /* Backgrounds */
     --bg-primary: #FFFFFF;
-    --bg-secondary: #FAFAFA;
+    --bg-secondary: #F9FAFB;
+    --bg-accent: #FFFBF0; /* Warm off-white */
     
-    /* Shadows - Softer for trust */
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 24px 0 rgba(0, 0, 0, 0.12);
+    /* Shadows - Professional depth */
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Yellow shadows for depth on yellow elements */
+    --shadow-yellow-sm: 0 1px 3px 0 rgba(255, 193, 7, 0.3);
+    --shadow-yellow-md: 0 4px 6px -1px rgba(255, 193, 7, 0.3);
 }
 
 body {
@@ -187,13 +202,14 @@ body {
 .btn-primary {
     background: var(--primary-600);
     color: var(--gray-900);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-yellow-sm);
+    font-weight: 600;
 }
 
 .btn-primary:hover {
-    background: var(--primary-400);
+    background: var(--primary-500);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-yellow-md);
 }
 
 .btn-secondary {
@@ -233,7 +249,7 @@ body {
 /* Hero Section */
 .hero {
     padding: 140px 0 80px;
-    background: linear-gradient(180deg, var(--primary-50) 0%, var(--bg-primary) 100%);
+    background: linear-gradient(180deg, var(--primary-100) 0%, var(--bg-primary) 100%);
 }
 
 .hero-content {
@@ -248,10 +264,10 @@ body {
     gap: 8px;
     padding: 6px 16px;
     background: var(--primary-100);
-    color: var(--gray-700);
+    color: var(--primary-900);
     border-radius: 24px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 24px;
     border: 1px solid var(--primary-200);
 }
@@ -370,13 +386,13 @@ h1 {
 
 .chart-bar {
     flex: 1;
-    background: linear-gradient(180deg, var(--primary-600) 0%, var(--primary-400) 100%);
+    background: linear-gradient(180deg, var(--primary-600) 0%, var(--primary-700) 100%);
     border-radius: 6px 6px 0 0;
     transition: all 0.3s ease;
 }
 
 .chart-bar:hover {
-    background: linear-gradient(180deg, var(--primary-400) 0%, var(--primary-300) 100%);
+    background: linear-gradient(180deg, var(--primary-500) 0%, var(--primary-600) 100%);
     transform: translateY(-4px);
 }
 
@@ -387,13 +403,13 @@ h1 {
 }
 
 .loyalty-card {
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-400) 100%);
-    color: var(--gray-900);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: white;
     padding: 28px;
     border-radius: 16px;
     width: 100%;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--primary-700);
     transition: transform 0.3s ease;
 }
 
@@ -412,7 +428,7 @@ h1 {
     width: 48px;
     height: 48px;
     background: white;
-    color: var(--primary-600);
+    color: var(--primary-700);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -425,6 +441,7 @@ h1 {
 .card-name {
     font-size: 20px;
     font-weight: 600;
+    color: white;
 }
 
 .stamps-grid {
@@ -437,17 +454,18 @@ h1 {
 .stamp {
     width: 40px;
     height: 40px;
-    border: 2px solid rgba(26, 26, 26, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     transition: all 0.2s;
 }
 
 .stamp.filled {
     background: white;
-    color: var(--primary-600);
+    color: var(--primary-700);
     border-color: white;
     font-weight: 600;
     box-shadow: var(--shadow-sm);
@@ -458,11 +476,12 @@ h1 {
     justify-content: space-between;
     font-size: 14px;
     padding-top: 16px;
-    border-top: 1px solid rgba(26, 26, 26, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
 }
 
 .card-reward {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .card-reward-text {
@@ -513,14 +532,14 @@ h1 {
     display: inline-block;
     padding: 6px 16px;
     background: var(--primary-100);
-    color: var(--gray-700);
+    color: var(--primary-900);
     border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 16px;
-    border: 1px solid var(--primary-200);
+    border: 1px solid var(--primary-300);
 }
 
 h2 {
@@ -563,13 +582,13 @@ h2 {
     width: 56px;
     height: 56px;
     background: var(--primary-100);
-    color: var(--primary-600);
+    color: var(--primary-700);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
-    border: 1px solid var(--primary-200);
+    border: 1px solid var(--primary-300);
 }
 
 .feature-card h3 {
@@ -603,14 +622,15 @@ h2 {
     display: inline-block;
     width: 56px;
     height: 56px;
-    background: var(--primary-100);
-    color: var(--primary-600);
+    background: var(--primary-600);
+    color: white;
     border-radius: 50%;
     line-height: 56px;
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 20px;
-    border: 2px solid var(--primary-200);
+    border: 2px solid var(--primary-700);
+    box-shadow: var(--shadow-yellow-sm);
 }
 
 .process-step h3 {
@@ -627,13 +647,13 @@ h2 {
 .process-connector {
     width: 80px;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary-300), var(--primary-200));
+    background: linear-gradient(90deg, var(--primary-600), var(--primary-400));
     margin: 0 20px;
 }
 
 /* Pricing */
 .pricing {
-    background: var(--primary-50);
+    background: var(--bg-accent);
 }
 
 .pricing-toggle-container {
@@ -670,8 +690,8 @@ h2 {
 
 .pricing-toggle-btn.active {
     background: var(--primary-600);
-    color: var(--gray-900);
-    box-shadow: var(--shadow-sm);
+    color: white;
+    box-shadow: var(--shadow-yellow-sm);
 }
 
 .pricing-grid {
@@ -699,7 +719,7 @@ h2 {
 
 .pricing-card.featured {
     border-color: var(--primary-600);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
 }
 
 .pricing-badge {
@@ -708,12 +728,13 @@ h2 {
     left: 50%;
     transform: translateX(-50%);
     background: var(--primary-600);
-    color: var(--gray-900);
+    color: white;
     padding: 6px 20px;
     border-radius: 24px;
     font-size: 13px;
     font-weight: 600;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-yellow-md);
+    border: 2px solid var(--primary-700);
 }
 
 .pricing-header {
@@ -799,7 +820,7 @@ h2 {
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 24px;
-    border: 1px solid var(--primary-100);
+    border: 1px solid var(--primary-200);
 }
 
 .price-row {
@@ -812,7 +833,7 @@ h2 {
 }
 
 .price-row.highlight {
-    color: var(--primary-600);
+    color: var(--primary-700);
     font-weight: 600;
 }
 
@@ -822,7 +843,7 @@ h2 {
 }
 
 .price-row.highlight .price-value {
-    color: var(--primary-600);
+    color: var(--primary-700);
 }
 
 .pricing-note {
@@ -835,7 +856,7 @@ h2 {
 /* CTA Section */
 .cta {
     padding: 100px 0;
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-400) 100%);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
     position: relative;
     overflow: hidden;
 }
@@ -847,7 +868,7 @@ h2 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(26,26,26,0.05)"/></svg>');
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
     opacity: 0.5;
 }
 
@@ -860,12 +881,12 @@ h2 {
 }
 
 .cta-content h2 {
-    color: var(--gray-900);
+    color: white;
     margin-bottom: 16px;
 }
 
 .cta-content p {
-    color: var(--gray-800);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 19px;
     margin-bottom: 32px;
 }
@@ -878,21 +899,22 @@ h2 {
 
 .cta .btn-primary {
     background: white;
-    color: var(--gray-900);
+    color: var(--primary-700);
 }
 
 .cta .btn-primary:hover {
     background: var(--gray-50);
+    transform: translateY(-2px);
 }
 
 .cta .btn-secondary {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--gray-900);
-    border: 2px solid rgba(26, 26, 26, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .cta .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
 }
 
 /* Footer */
@@ -972,7 +994,7 @@ h2 {
 .big-stat {
     font-size: 56px;
     font-weight: 700;
-    color: var(--primary-600);
+    color: var(--primary-700);
     margin-bottom: 12px;
 }
 
@@ -992,14 +1014,14 @@ h2 {
 
 .insight-card {
     background: var(--primary-50);
-    border-left: 4px solid var(--primary-600);
+    border-left: 4px solid var(--primary-700);
     padding: 28px;
     border-radius: 12px;
     margin: 40px 0;
 }
 
 .insight-card h4 {
-    color: var(--primary-600);
+    color: var(--primary-800);
     margin-bottom: 12px;
     font-size: 18px;
 }
@@ -1014,12 +1036,13 @@ h2 {
 }
 
 .comparison-table th {
-    background: var(--primary-50);
+    background: var(--primary-100);
     padding: 20px;
     text-align: left;
     font-weight: 600;
-    border-bottom: 2px solid var(--primary-200);
+    border-bottom: 2px solid var(--primary-300);
     font-size: 15px;
+    color: var(--gray-900);
 }
 
 .comparison-table td {
@@ -1086,8 +1109,8 @@ h2 {
 
 .tab-button.active {
     background: var(--primary-600);
-    color: var(--gray-900);
-    box-shadow: var(--shadow-sm);
+    color: white;
+    box-shadow: var(--shadow-yellow-sm);
 }
 
 .legal-content {
