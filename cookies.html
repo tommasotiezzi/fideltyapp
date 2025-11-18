@@ -103,13 +103,8 @@
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                </svg>
-                <span>Loyaly</span>
+                <img src="Icona.png" alt="Loyaly" class="nav-logo-icon">
+                <img src="Scritta_gialla.png" alt="Loyaly" class="nav-logo-wordmark">
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
@@ -152,12 +147,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                        <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    </svg>
+                    <img src="Icona.png" alt="Loyaly" style="height: 28px; width: auto;">
                     <span>Loyaly</span>
                 </div>
                 <div class="footer-links">
@@ -173,7 +163,7 @@
     </footer>
 
     <script>
-        // Initialize Supabase (replace with your actual credentials)
+        // Initialize Supabase
         const SUPABASE_URL = 'https://vjwdyyzjacjnlkvoxgcm.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqd2R5eXpqYWNqbmxrdm94Z2NtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2MTQwNDIsImV4cCI6MjA3MzE5MDA0Mn0.DMMCV14UrQROORgMOxwSevYSxYJGOr38bkGK5rHnkGo';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -201,7 +191,6 @@
 
                 console.log('Cookie policy loaded successfully:', data);
 
-                // Update UI
                 document.getElementById('document-title').textContent = data.title;
                 document.getElementById('version').textContent = data.version;
                 document.getElementById('last-updated').textContent = new Date(data.effective_date).toLocaleDateString('en-US', {
@@ -211,7 +200,6 @@
                 });
                 document.getElementById('document-content').innerHTML = data.content;
 
-                // Show content, hide loading
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
 
@@ -222,7 +210,6 @@
             }
         }
 
-        // Load cookie policy on page load
         window.addEventListener('DOMContentLoaded', loadCookies);
     </script>
 </body>

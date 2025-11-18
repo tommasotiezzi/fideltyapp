@@ -22,17 +22,17 @@
        4. Use yellow for accents, CTAs, and highlights - not body text
     */
     
-    /* Primary Yellow Scale - Vibrant and visible */
+    /* Primary Yellow Scale - New brand identity */
     --primary-900: #B8860B; /* Dark goldenrod for rare use */
     --primary-800: #D4A017; /* Medium gold */  
-    --primary-700: #FFD700; /* Pure gold */
-    --primary-600: #FFE135; /* Main brand yellow - bright like Snapchat but slightly warmer */
-    --primary-500: #FFED4E; /* Lighter yellow */
-    --primary-400: #FFF176; /* Light yellow for backgrounds */
-    --primary-300: #FFF59D; /* Very light yellow */
-    --primary-200: #FFF9C4; /* Subtle yellow background */
-    --primary-100: #FFFDE7; /* Barely yellow tint */
-    --primary-50: #FFFFF0; /* Ivory - almost white */
+    --primary-700: #e2af11; /* Deep gold - from icon gradient bottom */
+    --primary-600: #fbd501; /* Main brand yellow - from icon gradient top */
+    --primary-500: #fce566; /* Mid-light yellow */
+    --primary-400: #fdf099; /* Light yellow for backgrounds */
+    --primary-300: #fef7cc; /* Very light yellow */
+    --primary-200: #fff9cf; /* Cream - from icon gradient middle */
+    --primary-100: #fffbeb; /* Barely yellow tint */
+    --primary-50: #fffff0; /* Ivory - almost white */
     
     /* Grays - For pairing with yellow (CRITICAL for readability) */
     --gray-900: #1A1A1A; /* Almost black - use for text on yellow */
@@ -53,7 +53,7 @@
     /* Backgrounds */
     --bg-primary: #FFFFFF;
     --bg-secondary: #FAFAFA;
-    --bg-yellow-light: #FFFDE7; /* Light yellow for sections */
+    --bg-yellow-light: #fffbeb; /* Light yellow for sections - matches new primary-100 */
     
     /* Shadows - Subtle for clean design */
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -62,7 +62,7 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     
     /* Yellow-specific shadows for depth */
-    --shadow-yellow: 0 4px 14px 0 rgba(255, 225, 53, 0.4);
+    --shadow-yellow: 0 4px 14px 0 rgba(251, 213, 1, 0.4);
 }
 
 body {
@@ -105,9 +105,6 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-weight: 600;
-    font-size: 20px;
-    color: var(--gray-900);
     cursor: pointer;
     transition: opacity 0.2s;
 }
@@ -116,10 +113,21 @@ body {
     opacity: 0.8;
 }
 
-.nav-brand svg,
-.nav-brand img {
-    width: 32px;
+.nav-logo-icon {
     height: 32px;
+    width: auto;
+}
+
+.nav-logo-wordmark {
+    height: 24px;
+    width: auto;
+}
+
+/* Hide wordmark on mobile */
+@media (max-width: 768px) {
+    .nav-logo-wordmark {
+        display: none;
+    }
 }
 
 .nav-menu {
@@ -209,16 +217,35 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary-600);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
     color: var(--gray-900); /* Dark text on yellow - high contrast */
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 14px rgba(251, 213, 1, 0.4), 
+                0 2px 4px rgba(226, 175, 17, 0.2);
     font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
 }
 
 .btn-primary:hover {
-    background: var(--primary-500);
+    background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-yellow);
+    box-shadow: 0 6px 20px rgba(251, 213, 1, 0.5), 
+                0 3px 6px rgba(226, 175, 17, 0.3);
 }
 
 .btn-secondary {
@@ -272,12 +299,13 @@ body {
     align-items: center;
     gap: 8px;
     padding: 6px 16px;
-    background: var(--primary-600);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
     color: var(--gray-900);
     border-radius: 24px;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(251, 213, 1, 0.3);
 }
 
 h1 {

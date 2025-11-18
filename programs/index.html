@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Loyalty Programs - Tessere</title>
+    <title>Active Loyalty Programs - Loyaly</title>
     
-    <!-- Main website styles -->
     <link rel="stylesheet" href="../style.css">
-    <!-- Programs specific styles -->
     <link rel="stylesheet" href="programs.css">
     
-    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Supabase Config -->
     <script src="supabase-programs.js"></script>
-    <!-- QR Code Generator -->
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
@@ -41,18 +36,14 @@
     </div>
   </div>
 </div>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                        <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    </svg>
-                    <span>Tessere</span>
+                    <img src="../Icona.png" alt="Loyaly" class="nav-logo-icon">
+                    <img src="../Scritta_gialla.png" alt="Loyaly" class="nav-logo-wordmark">
                 </a>
             </div>
             <div class="nav-menu">
@@ -97,11 +88,11 @@
             </div>
 
             <!-- Location Filter -->
-<!-- Location Filter -->
-<div class="location-filter">
-    <button class="filter-pill" data-filter="my-cards">My Cards</button>
-    <button class="filter-pill active" data-location="all">All Locations</button>
-</div>
+            <div class="location-filter">
+                <button class="filter-pill" data-filter="my-cards">My Cards</button>
+                <button class="filter-pill active" data-location="all">All Locations</button>
+            </div>
+
             <!-- Programs Grid -->
             <div class="programs-grid" id="programs-grid">
                 <!-- Cards will be loaded here dynamically -->
@@ -184,28 +175,22 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                        <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    </svg>
-                    <span>Tessere</span>
+                    <img src="../Icona.png" alt="Loyaly" style="height: 28px; width: auto;">
+                    <span>Loyaly</span>
                 </div>
                 <div class="footer-links">
                     <a href="#">Download App</a>
                     <a href="#">Support</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
+                    <a href="../privacy.html">Privacy</a>
+                    <a href="../terms.html">Terms</a>
                 </div>
                 <div class="footer-copyright">
-                    © 2024 Tessere. All rights reserved.
+                    © 2025 Loyaly. All rights reserved.
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Programs JavaScript -->
     <script src="programs.js"></script>
 </body>
 </html>

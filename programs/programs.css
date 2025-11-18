@@ -44,8 +44,8 @@
 
 .search-input:focus {
     outline: none;
-    border-color: #A78BFA;
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    border-color: var(--primary-600);
+    box-shadow: 0 0 0 3px rgba(251, 213, 1, 0.1);
 }
 
 .search-icon {
@@ -599,7 +599,7 @@
 .app-cta {
   position: fixed;
   z-index: 1000;
-  background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
 }
 

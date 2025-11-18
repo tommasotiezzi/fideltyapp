@@ -140,13 +140,8 @@
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                </svg>
-                <span>Loyaly</span>
+                <img src="Icona.png" alt="Loyaly" class="nav-logo-icon">
+                <img src="Scritta_gialla.png" alt="Loyaly" class="nav-logo-wordmark">
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
@@ -208,12 +203,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                        <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    </svg>
+                    <img src="Icona.png" alt="Loyaly" style="height: 28px; width: auto;">
                     <span>Loyaly</span>
                 </div>
                 <div class="footer-links">
@@ -229,7 +219,6 @@
     </footer>
 
     <script>
-        // Initialize Supabase (replace with your actual credentials)
         const SUPABASE_URL = 'https://vjwdyyzjacjnlkvoxgcm.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqd2R5eXpqYWNqbmxrdm94Z2NtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2MTQwNDIsImV4cCI6MjA3MzE5MDA0Mn0.DMMCV14UrQROORgMOxwSevYSxYJGOr38bkGK5rHnkGo';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -240,7 +229,6 @@
             try {
                 console.log('Fetching privacy policy from Supabase...');
                 
-                // Fetch both restaurant and customer privacy policies
                 const { data, error } = await supabaseClient
                     .from('legal_documents')
                     .select('*')
@@ -259,12 +247,10 @@
 
                 console.log('Privacy policy loaded successfully:', data);
 
-                // Store data by audience
                 data.forEach(doc => {
                     privacyData[doc.audience] = doc;
                 });
 
-                // Update meta info (use restaurant version as default)
                 const restaurantPrivacy = privacyData['restaurant'];
                 if (restaurantPrivacy) {
                     document.getElementById('meta-info').textContent = 
@@ -275,7 +261,6 @@
                         })}`;
                 }
 
-                // Load content for both tabs
                 if (privacyData['restaurant']) {
                     document.getElementById('restaurant-content').innerHTML = privacyData['restaurant'].content;
                 }
@@ -283,7 +268,6 @@
                     document.getElementById('customer-content').innerHTML = privacyData['customer'].content;
                 }
 
-                // Show content, hide loading
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
 
@@ -295,20 +279,17 @@
         }
 
         function switchTab(audience) {
-            // Update buttons
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
 
-            // Update content
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             document.getElementById(audience + '-tab').classList.add('active');
         }
 
-        // Load privacy policy on page load
         window.addEventListener('DOMContentLoaded', loadPrivacy);
     </script>
 </body>
