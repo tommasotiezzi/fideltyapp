@@ -112,7 +112,7 @@ const translations = {
         'nav.programs': 'Programs',
         'cta.getStarted': 'Get Started',
         
-        'hero.title': 'Digital Loyalty Cards for Modern Restaurants',
+        'hero.title': 'Digital Loyalty Cards for Modern Businesses',
         'hero.subtitle': 'Replace paper stamp cards with a seamless digital experience. Boost customer retention with zero friction.',
         'hero.note': '2 months included with activation',
         
@@ -144,11 +144,11 @@ const translations = {
         'features.setup.description': 'Go live in 5 minutes with our simple onboarding.',
         
         'howItWorks.title': 'Get started in minutes',
-        'howItWorks.subtitle': 'Simple setup process for restaurants and seamless experience for customers.',
+        'howItWorks.subtitle': 'Simple setup process for businesses and seamless experience for customers.',
         'howItWorks.step1.title': 'Create Your Card',
         'howItWorks.step1.description': 'Design your loyalty card with custom branding and rewards.',
         'howItWorks.step2.title': 'Display QR Code',
-        'howItWorks.step2.description': 'Place QR codes in your restaurant for customers to scan.',
+        'howItWorks.step2.description': 'Place QR codes in your business for customers to scan.',
         'howItWorks.step3.title': 'Track & Engage',
         'howItWorks.step3.description': 'Monitor analytics and send targeted notifications.',
         
@@ -172,7 +172,7 @@ const translations = {
         
         'pricing.premium.title': 'Premium - Monthly',
         'pricing.premium.titleMetered': 'Premium - Pay-Per-Stamp',
-        'pricing.premium.note': 'For growing restaurants',
+        'pricing.premium.note': 'For growing businesses',
         'pricing.premium.noteMetered': 'Maximum flexibility',
         
         'pricing.features.loyaltyCard': '1 loyalty card',

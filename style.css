@@ -121,6 +121,7 @@ body {
 
 .nav-menu {
     display: flex;
+    align-items: center;
     gap: 32px;
 }
 
@@ -133,6 +134,7 @@ body {
     transition: opacity 0.3s;
     opacity: 0.8;
     position: relative;
+    line-height: 1;
 }
 
 .nav-link:hover {
@@ -190,6 +192,127 @@ body {
     background: white;
     color: var(--gray-900);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1002;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 2px;
+    background: var(--gray-900);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        order: -1;
+        position: relative;
+        z-index: 1002;
+    }
+    
+    .nav-brand {
+        display: none;
+    }
+    
+    .nav-container {
+        justify-content: space-between;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+        z-index: 1001;
+        align-items: stretch;
+    }
+    
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+    
+    /* Logo header nel menu */
+    .nav-menu::before {
+        content: '';
+        display: flex;
+        align-items: center;
+        padding: 24px;
+        padding-top: 64px;
+        border-bottom: 1px solid var(--gray-100);
+        height: 100px;
+        box-sizing: border-box;
+        background: 
+            url('Scritta_gialla.png') no-repeat 68px center / auto 20px,
+            url('Icona.png') no-repeat 24px center / 32px;
+    }
+    
+    .nav-menu .nav-link {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--gray-100);
+        font-size: 17px;
+        font-weight: 400;
+        text-align: left;
+        width: 100%;
+        color: var(--gray-900);
+        letter-spacing: -0.02em;
+    }
+    
+    .nav-menu .nav-link:active {
+        background: var(--gray-50);
+    }
+    
+    .nav-menu .nav-link::after {
+        display: none;
+    }
+    
+    /* CTA in fondo al menu */
+    .mobile-menu-cta {
+        margin-top: auto;
+        padding: 24px;
+        border-top: 1px solid var(--gray-100);
+    }
+    
+    .mobile-menu-cta .btn-full {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+        font-size: 17px;
+        font-weight: 600;
+    }
 }
 
 /* Buttons - Apple Style with correct gradient */
@@ -875,10 +998,64 @@ h2 {
     cursor: help;
     font-weight: 400;
     transition: color 0.2s;
+    position: relative;
 }
 
 .info-tooltip:hover {
     color: var(--gray-700);
+}
+
+/* Tooltip bubble on mobile */
+@media (max-width: 768px) {
+    .info-tooltip {
+        cursor: pointer;
+    }
+    
+    .info-tooltip::after {
+        content: attr(title);
+        position: absolute;
+        bottom: 150%;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        background: var(--gray-900);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        max-width: 200px;
+        white-space: normal;
+        width: max-content;
+        max-width: 250px;
+        z-index: 1000;
+        pointer-events: none;
+        opacity: 0;
+        transition: all 0.2s ease;
+        line-height: 1.4;
+    }
+    
+    .info-tooltip::before {
+        content: '';
+        position: absolute;
+        bottom: 150%;
+        left: 50%;
+        transform: translateX(-50%) translateY(6px) scale(0);
+        border: 6px solid transparent;
+        border-top-color: var(--gray-900);
+        z-index: 1000;
+        opacity: 0;
+        transition: all 0.2s ease;
+    }
+    
+    .info-tooltip.active::after,
+    .info-tooltip.active::before {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    
+    .info-tooltip.active::before {
+        transform: translateX(-50%) translateY(6px) scale(1);
+    }
 }
 
 .pricing-cta .btn-primary {
@@ -1289,10 +1466,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-
     h1 {
         font-size: 40px;
     }
@@ -1329,6 +1502,13 @@ h2 {
 
     .hero-actions {
         flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-actions .btn {
+        max-width: 280px;
+        width: 100%;
+        justify-content: center;
     }
 
     .footer-content {

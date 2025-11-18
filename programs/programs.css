@@ -811,3 +811,33 @@ body.app-cta-visible {
 .app-cta.hidden {
   display: none;
 }
+
+/* Mobile Back Button */
+.mobile-back-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-back-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--gray-900);
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        transition: opacity 0.2s;
+    }
+    
+    .mobile-back-btn:active {
+        opacity: 0.5;
+    }
+    
+    .nav-brand {
+        display: none;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+}

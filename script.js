@@ -47,6 +47,71 @@ function updateTranslations(lang) {
 
 // Check for saved language preference on load
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded');
+    
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    
+    console.log('Hamburger:', hamburger);
+    console.log('NavMenu:', navMenu);
+    
+    if (hamburger && navMenu) {
+        console.log('Setting up hamburger listener');
+        hamburger.addEventListener('click', (e) => {
+            console.log('Hamburger clicked!');
+            e.preventDefault();
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            console.log('Menu active:', navMenu.classList.contains('active'));
+        });
+        
+        // Close menu when clicking on a link
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                console.log('Link clicked, closing menu');
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    } else {
+        console.error('Hamburger or menu not found!');
+    }
+    
+    // Mobile tooltip click handling
+    if (window.innerWidth <= 768) {
+        console.log('Mobile mode - setting up tooltips');
+        document.querySelectorAll('.info-tooltip').forEach(tooltip => {
+            tooltip.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Tooltip clicked');
+                
+                // Close other tooltips
+                document.querySelectorAll('.info-tooltip.active').forEach(other => {
+                    if (other !== tooltip) {
+                        other.classList.remove('active');
+                    }
+                });
+                
+                // Toggle this tooltip
+                tooltip.classList.toggle('active');
+            });
+        });
+        
+        // Close tooltip when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('info-tooltip')) {
+                document.querySelectorAll('.info-tooltip.active').forEach(tooltip => {
+                    tooltip.classList.remove('active');
+                });
+            }
+        });
+    }
+    
+    // Language preference
     const savedLang = localStorage.getItem('preferredLanguage');
     if (savedLang && savedLang !== 'it') {
         switchLanguage(savedLang);
@@ -58,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    console.log('Setup complete');
 });
 
 // Smooth scroll for navigation links
