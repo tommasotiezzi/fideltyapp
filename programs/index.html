@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Loyalty Programs - Loyaly</title>
+    <title>Programmi Fedeltà Attivi - Loyaly</title>
+    <link rel="icon" type="image/svg+xml" href="../Icona.svg">
     
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="programs.css">
@@ -17,8 +18,8 @@
 <div class="app-cta" id="app-cta">
   <div class="app-cta-content">
     <div class="app-cta-text">
-      <h3>Manage your cards easily</h3>
-      <p>Download our app for the best experience</p>
+      <h3 class="color-black">Gestisci le tue carte facilmente</h3>
+      <p class="color-black">Scarica la nostra app per la migliore esperienza</p>
     </div>
     <div class="app-cta-buttons">
       <a href="#" class="app-store-btn" id="app-store-link">
@@ -48,16 +49,20 @@
             </div>
             <div class="nav-menu">
                 <a href="../index.html" class="nav-link">Home</a>
-                <a href="../index.html#features" class="nav-link">Features</a>
-                <a href="../index.html#pricing" class="nav-link">Pricing</a>
-                <a href="../fidelity-details.html" class="nav-link">Why Loyalty Cards</a>
-                <a href="../programs/index.html" class="nav-link">Programs</a>
+                <a href="../index.html#features" class="nav-link">Funzionalità</a>
+                <a href="../index.html#pricing" class="nav-link">Prezzi</a>
+                <a href="../fidelity-details.html" class="nav-link">Perché Carte Fedeltà</a>
+                <a href="../programs/index.html" class="nav-link">Programmi</a>
             </div>
             <div class="nav-actions">
-                <button class="btn-text" id="auth-btn">Sign In</button>
+                <div class="language-toggle">
+                    <button class="lang-button active" onclick="switchLanguage('it')">IT</button>
+                    <button class="lang-button" onclick="switchLanguage('en')">EN</button>
+                </div>
+                <button class="btn-text" id="auth-btn">Accedi</button>
                 <div id="user-menu" style="display: none;">
                     <span id="user-email" style="font-size: 14px; color: var(--gray-600); margin-right: 12px;"></span>
-                    <button class="btn btn-secondary" onclick="signOut()">Sign Out</button>
+                    <button class="btn btn-secondary" onclick="signOut()">Esci</button>
                 </div>
             </div>
         </div>
@@ -67,10 +72,10 @@
     <section class="programs-hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Discover Loyalty Programs</h1>
+                <h1>Scopri i Programmi Fedeltà</h1>
                 <p class="hero-subtitle">
-                    Find and join loyalty programs from your favorite restaurants. 
-                    Never lose a stamp card again!
+                    Trova e iscriviti ai programmi fedeltà dei tuoi ristoranti preferiti. 
+                    Non perdere mai più una tessera!
                 </p>
             </div>
         </div>
@@ -84,13 +89,13 @@
                 <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                <input type="text" class="search-input" id="search-programs" placeholder="Search restaurants or locations...">
+                <input type="text" class="search-input" id="search-programs" placeholder="Cerca ristoranti o località...">
             </div>
 
             <!-- Location Filter -->
             <div class="location-filter">
-                <button class="filter-pill" data-filter="my-cards">My Cards</button>
-                <button class="filter-pill active" data-location="all">All Locations</button>
+                <button class="filter-pill" data-filter="my-cards">Le Mie Carte</button>
+                <button class="filter-pill active" data-location="all">Tutte le Località</button>
             </div>
 
             <!-- Programs Grid -->
@@ -103,8 +108,8 @@
                 <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <h3>No programs found</h3>
-                <p>Try adjusting your search or filters</p>
+                <h3>Nessun programma trovato</h3>
+                <p>Prova a modificare la ricerca o i filtri</p>
             </div>
         </div>
     </section>
@@ -116,45 +121,45 @@
             <button class="modal-close" onclick="closeAuthModal()">×</button>
             
             <div class="modal-header">
-                <h2 id="modal-title">Sign In to Get Card</h2>
-                <p id="modal-subtitle">Join the loyalty program and start earning rewards</p>
+                <h2 id="modal-title">Accedi per Ottenere la Carta</h2>
+                <p id="modal-subtitle">Unisciti al programma fedeltà e inizia a guadagnare premi</p>
             </div>
 
-            <!-- Sign In Form -->
+            <!-- Accedi Form -->
             <div id="signin-form" class="auth-form">
                 <div class="form-group">
                     <label for="signin-email">Email</label>
-                    <input type="email" id="signin-email" placeholder="you@example.com">
+                    <input type="email" id="signin-email" placeholder="tu@esempio.it">
                 </div>
                 <div class="form-group">
                     <label for="signin-password">Password</label>
                     <input type="password" id="signin-password" placeholder="••••••••">
                 </div>
-                <button class="btn btn-primary btn-full" onclick="signIn()">Sign In</button>
+                <button class="btn btn-primary btn-full" onclick="signIn()">Accedi</button>
                 <p class="form-footer">
-                    Don't have an account? 
-                    <a href="#" onclick="switchToSignUp(); return false;">Sign up</a>
+                    Non hai un account? 
+                    <a href="#" onclick="switchToSignUp(); return false;">Registrati</a>
                 </p>
             </div>
 
             <!-- Sign Up Form -->
             <div id="signup-form" class="auth-form" style="display: none;">
                 <div class="form-group">
-                    <label for="signup-name">Name</label>
-                    <input type="text" id="signup-name" placeholder="John Doe">
+                    <label for="signup-name">Nome</label>
+                    <input type="text" id="signup-name" placeholder="Mario Rossi">
                 </div>
                 <div class="form-group">
                     <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" placeholder="you@example.com">
+                    <input type="email" id="signup-email" placeholder="tu@esempio.it">
                 </div>
                 <div class="form-group">
                     <label for="signup-password">Password</label>
                     <input type="password" id="signup-password" placeholder="••••••••">
                 </div>
-                <button class="btn btn-primary btn-full" onclick="signUp()">Sign Up & Get Card</button>
+                <button class="btn btn-primary btn-full" onclick="signUp()">Registrati e Ottieni la Carta</button>
                 <p class="form-footer">
-                    Already have an account? 
-                    <a href="#" onclick="switchToSignIn(); return false;">Sign in</a>
+                    Hai già un account? 
+                    <a href="#" onclick="switchToSignIn(); return false;">Accedi</a>
                 </p>
             </div>
 
@@ -163,9 +168,9 @@
                 <svg width="48" height="48" fill="none" stroke="#10B981" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <h3>Card Added Successfully!</h3>
-                <p>You can now start collecting stamps</p>
-                <button class="btn btn-primary" onclick="viewMyCards()">View My Cards</button>
+                <h3>Carta Aggiunta con Successo!</h3>
+                <p>Ora puoi iniziare a collezionare timbri</p>
+                <button class="btn btn-primary" onclick="viewMyCards()">Vedi le Mie Carte</button>
             </div>
         </div>
     </div>
@@ -176,16 +181,16 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <img src="../Icona.png" alt="Loyaly" style="height: 28px; width: auto;">
-                    <span>Loyaly</span>
+                    <img src="../Scritta_gialla.png" alt="Loyaly" style="height: 18px; width: auto;" class="nav-logo-wordmark">
                 </div>
                 <div class="footer-links">
-                    <a href="#">Download App</a>
-                    <a href="#">Support</a>
+                    <a href="/cdn-cgi/l/email-protection#087b7d7878677a7c48646771696471266d7d">Supporto</a>
                     <a href="../privacy.html">Privacy</a>
-                    <a href="../terms.html">Terms</a>
+                    <a href="../terms.html">Termini</a>
+                    <a href="../cookies.html">Cookie</a>
                 </div>
                 <div class="footer-copyright">
-                    © 2025 Loyaly. All rights reserved.
+                    © 2025 Loyaly. Tutti i diritti riservati.
                 </div>
             </div>
         </div>
@@ -193,4 +198,3 @@
 
     <script src="programs.js"></script>
 </body>
-</html>

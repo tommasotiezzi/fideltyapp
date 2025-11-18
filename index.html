@@ -5,56 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loyaly - Piattaforma Digitale per Carte Fedeltà</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Pricing Toggle Styles */
-        .pricing-toggle-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 48px;
-        }
-        
-        .pricing-toggle {
-            display: inline-flex;
-            background: white;
-            padding: 6px;
-            border-radius: 12px;
-            gap: 6px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-100);
-        }
-        
-        .pricing-toggle-btn {
-            padding: 12px 28px;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--gray-600);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .pricing-toggle-btn.active {
-            background: var(--primary-600);
-            color: var(--gray-900);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        
-        @media (max-width: 968px) {
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="icon" type="image/svg+xml" href="Icona.svg">
+
 </head>
 <body>
     <!-- Navigation -->
@@ -197,8 +149,7 @@
                     <p data-i18n="features.analytics.description">Traccia il comportamento dei clienti e le prestazioni del programma fedeltà.</p>
                 </div>
                 
-                <div class="feature-card" style="opacity: 0.6; position: relative;">
-                    <div style="position: absolute; top: 12px; right: 12px; background: #f59e0b; color: white; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;" data-i18n="features.comingSoon">PROSSIMAMENTE</div>
+                <div class="feature-card">
                     <div class="feature-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -378,7 +329,10 @@
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            <span data-i18n="pricing.features.notifications">2 notifiche/mese</span>
+                            <span>
+                                Notifica quasi completamento
+                                <span class="info-tooltip" title="Notifica automatica quando un cliente raggiunge il 75% dei timbri">ⓘ</span>
+                            </span>
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -445,7 +399,10 @@
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
-                            <span data-i18n="pricing.features.notifications6">6 notifiche/mese</span>
+                            <span>
+                                Notifica quasi completamento + riattivazione clienti
+                                <span class="info-tooltip" title="Notifica automatica al 75% timbri + notifica per clienti inattivi oltre 21 giorni">ⓘ</span>
+                            </span>
                         </li>
                         <li>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -569,7 +526,10 @@
                             <span data-i18n="pricing.features.events">2 eventi attivi</span>
                         </li>
                         <li>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <span>
+                                Notifica quasi completamento
+                                <span class="info-tooltip" title="Notifica automatica quando un cliente raggiunge il 75% dei timbri">ⓘ</span>
+                            </span>
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
                             <span data-i18n="pricing.features.notifications">2 notifiche/mese</span>
@@ -604,7 +564,8 @@
                 </div>
 
                 <!-- Premium Pay-Per-Stamp Plan -->
-                <div class="pricing-card">
+                <div class="pricing-card featured">
+                    <div class="pricing-badge" data-i18n="pricing.mostPopular">Più Popolare</div>
                     <div class="pricing-header">
                         <h3 data-i18n="pricing.premium.titleMetered">Premium - Paga per Timbro</h3>
                         <div class="price">
@@ -635,7 +596,10 @@
                             <span data-i18n="pricing.features.events6">6 eventi attivi</span>
                         </li>
                         <li>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <span>
+                                Notifica quasi completamento + riattivazione clienti
+                                <span class="info-tooltip" title="Notifica automatica al 75% timbri + notifica per clienti inattivi oltre 21 giorni">ⓘ</span>
+                            </span>
                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                             </svg>
                             <span data-i18n="pricing.features.notifications6">6 notifiche/mese</span>
@@ -698,7 +662,8 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <img src="Icona.png" alt="Loyaly" style="height: 28px; width: auto;">
-                    <span>Loyaly</span>
+                    <img src="Scritta_gialla.png" alt="Loyaly" style="height: 18px; width: auto;" class="nav-logo-wordmark">
+
                 </div>
                 <div class="footer-links">
                     <a href="/cdn-cgi/l/email-protection#f3808683839c8187b39f9c8a929f8add9686" data-i18n="footer.support">Supporto</a>
@@ -713,4 +678,6 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/sc
+    <script src="script.js"></script>
+</body>
+</html>

@@ -4,136 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perché le Carte Fedeltà Funzionano - Loyaly</title>
+    <link rel="icon" type="image/svg+xml" href="icona.svg">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .language-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .lang-button {
-            padding: 6px 12px;
-            border: 1px solid var(--gray-300);
-            background: white;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--gray-600);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .lang-button:hover {
-            border-color: var(--primary-400);
-            color: var(--primary-600);
-        }
-        
-        .lang-button.active {
-            background: var(--primary-600);
-            color: white;
-            border-color: var(--primary-600);
-        }
-        
-        .stats-hero {
-            padding: 120px 0 60px;
-            background: linear-gradient(135deg, var(--primary-100) 0%, var(--bg-primary) 100%);
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 1000px;
-            margin: 60px auto;
-        }
-        
-        .stat-block {
-            background: white;
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .stat-block h3 {
-            font-size: 20px;
-            color: var(--gray-900);
-            margin-bottom: 16px;
-        }
-        
-        .big-stat {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--primary-600);
-            margin-bottom: 8px;
-        }
-        
-        .stat-description {
-            color: var(--gray-600);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-        
-        .stat-source {
-            font-size: 12px;
-            color: var(--gray-500);
-            padding-top: 12px;
-            border-top: 1px solid var(--gray-100);
-        }
-        
-        .insight-card {
-            background: var(--primary-50);
-            border-left: 4px solid var(--primary-600);
-            padding: 24px;
-            border-radius: 8px;
-            margin: 32px 0;
-        }
-        
-        .insight-card h4 {
-            color: var(--primary-600);
-            margin-bottom: 12px;
-        }
-        
-        .comparison-table {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            margin: 40px 0;
-        }
-        
-        .comparison-table th {
-            background: var(--gray-50);
-            padding: 16px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid var(--gray-200);
-        }
-        
-        .comparison-table td {
-            padding: 16px;
-            border-bottom: 1px solid var(--gray-100);
-        }
-        
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                    <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                </svg>
-                <span>Loyaly</span>
+                <img src="Icona.png" alt="Loyaly" class="nav-logo-icon">
+                <img src="Scritta_gialla.png" alt="Loyaly" class="nav-logo-wordmark">
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
@@ -156,7 +36,7 @@
     <section class="stats-hero">
         <div class="container">
             <div class="hero-content">
-                <div class="badge" data-i18n="hero.badge">Dati Concreti</div>
+                <div class="section-tag" data-i18n="hero.badge">Dati Concreti</div>
                 <h1 data-i18n="hero.title">Perché le Carte Fedeltà sono Essenziali per i Ristoranti</h1>
                 <p class="hero-subtitle" data-i18n="hero.subtitle">
                     I numeri parlano chiaro. Scopri come le carte fedeltà trasformano 
@@ -167,208 +47,187 @@
     </section>
 
     <!-- Key Statistics -->
-    <section class="container">
-        <div class="section-header">
-            <h2 data-i18n="stats.title">L'Impatto in Numeri</h2>
-            <p data-i18n="stats.subtitle">Dati reali da programmi fedeltà di successo in tutto il mondo</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-block">
-                <div class="big-stat">20%</div>
-                <h3 data-i18n="stats.frequency.title">Aumento della Frequenza di Visite</h3>
-                <p class="stat-description" data-i18n="stats.frequency.description">
-                    I possessori di carte fedeltà visitano i ristoranti il 20% più spesso dei non membri. 
-                    Questo significa che un cliente che normalmente visita due volte al mese, visiterà 2,4 volte 
-                    con una carta fedeltà.
-                </p>
-                <div class="stat-source" data-i18n="stats.frequency.source">Fonte: National Restaurant Association 2024</div>
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="stats.title">L'Impatto in Numeri</h2>
+                <p class="section-subtitle" data-i18n="stats.subtitle">Dati reali da programmi fedeltà di successo in tutto il mondo</p>
             </div>
 
-            <div class="stat-block">
-                <div class="big-stat">4.8x</div>
-                <h3 data-i18n="stats.roi.title">ROI Medio</h3>
-                <p class="stat-description" data-i18n="stats.roi.description">
-                    Il 90% dei proprietari di programmi fedeltà riporta un ROI positivo, con una media 
-                    di 4,8x. Per ogni €1 investito in fedeltà, i ristoranti vedono un ritorno di €4,80.
-                </p>
-                <div class="stat-source" data-i18n="stats.roi.source">Fonte: Antavo Customer Loyalty Report 2024</div>
+            <div class="stats-grid">
+                <div class="stat-block">
+                    <div class="big-stat">20%</div>
+                    <h3 data-i18n="stats.frequency.title">Aumento della Frequenza di Visite</h3>
+                    <p class="stat-description" data-i18n="stats.frequency.description">
+                        I possessori di carte fedeltà visitano i ristoranti il 20% più spesso dei non membri. 
+                        Questo significa che un cliente che normalmente visita due volte al mese, visiterà 2,4 volte 
+                        con una carta fedeltà.
+                    </p>
+                    <div class="stat-source" data-i18n="stats.frequency.source">Fonte: National Restaurant Association 2024</div>
+                </div>
+
+                <div class="stat-block">
+                    <div class="big-stat">4.8x</div>
+                    <h3 data-i18n="stats.roi.title">ROI Medio</h3>
+                    <p class="stat-description" data-i18n="stats.roi.description">
+                        Il 90% dei proprietari di programmi fedeltà riporta un ROI positivo, con una media 
+                        di 4,8x. Per ogni €1 investito in fedeltà, i ristoranti vedono un ritorno di €4,80.
+                    </p>
+                    <div class="stat-source" data-i18n="stats.roi.source">Fonte: Antavo Customer Loyalty Report 2024</div>
+                </div>
+
+                <div class="stat-block">
+                    <div class="big-stat">67%</div>
+                    <h3 data-i18n="stats.spend.title">Scontrino Più Alto</h3>
+                    <p class="stat-description" data-i18n="stats.spend.description">
+                        Lo scontrino di un cliente fedele sarà il 67% più alto rispetto a quello di un nuovo cliente. 
+                        I possessori di carte spendono di più per visita per massimizzare i loro premi.
+                    </p>
+                    <div class="stat-source" data-i18n="stats.spend.source">Fonte: Incentivio Restaurant Study</div>
+                </div>
             </div>
 
-            <div class="stat-block">
-                <div class="big-stat">67%</div>
-                <h3 data-i18n="stats.spend.title">Scontrino Più Alto</h3>
-                <p class="stat-description" data-i18n="stats.spend.description">
-                    Lo scontrino di un cliente fedele sarà il 67% più alto rispetto a quello di un nuovo cliente. 
-                    I possessori di carte spendono di più per visita per massimizzare i loro premi.
+            <div class="insight-card">
+                <h4 data-i18n="insight.title">💡 Insight Chiave</h4>
+                <p data-i18n="insight.description">
+                    I membri dei programmi fedeltà generano dal 12 al 18% in più di crescita incrementale dei ricavi all'anno 
+                    rispetto ai non membri. I programmi fedeltà con le migliori prestazioni aumentano i ricavi dai clienti 
+                    che li utilizzano del 15-25% annualmente.
                 </p>
-                <div class="stat-source" data-i18n="stats.spend.source">Fonte: Incentivio Restaurant Study</div>
             </div>
-
-            <div class="stat-block">
-                <div class="big-stat">25-95%</div>
-                <h3 data-i18n="stats.profit.title">Aumento dei Profitti</h3>
-                <p class="stat-description" data-i18n="stats.profit.description">
-                    Un aumento del 5% nella fidelizzazione dei clienti può aumentare i profitti dal 25% al 95%. 
-                    Le carte fedeltà sono lo strumento di fidelizzazione più efficace.
-                </p>
-                <div class="stat-source" data-i18n="stats.profit.source">Fonte: Harvard Business School</div>
-            </div>
-        </div>
-
-        <div class="insight-card">
-            <h4 data-i18n="insight.title">💡 Insight Chiave</h4>
-            <p data-i18n="insight.description">
-                I membri dei programmi fedeltà generano dal 12 al 18% in più di crescita incrementale dei ricavi all'anno 
-                rispetto ai non membri. I programmi fedeltà con le migliori prestazioni aumentano i ricavi dai clienti 
-                che li utilizzano del 15-25% annualmente.
-            </p>
         </div>
     </section>
 
     <!-- Customer Behavior Section -->
-    <section class="container">
-        <div class="section-header">
-            <h2 data-i18n="behavior.title">Come i Clienti Usano le Carte Fedeltà</h2>
-            <p data-i18n="behavior.subtitle">Comprendere il comportamento dei clienti aiuta a ottimizzare il tuo programma</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-block">
-                <div class="big-stat">47%</div>
-                <h3 data-i18n="behavior.usage.title">Usano le Carte Più Volte al Mese</h3>
-                <p class="stat-description" data-i18n="behavior.usage.description">
-                    Quasi la metà dei possessori di carte fedeltà le usa più volte 
-                    al mese, mentre il 32% le usa più volte a settimana.
-                </p>
-                <div class="stat-source" data-i18n="behavior.usage.source">Fonte: Deloitte Restaurant Study</div>
+    <section style="padding: 80px 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="behavior.title">Come i Clienti Usano le Carte Fedeltà</h2>
+                <p class="section-subtitle" data-i18n="behavior.subtitle">Comprendere il comportamento dei clienti aiuta a ottimizzare il tuo programma</p>
             </div>
 
-            <div class="stat-block">
-                <div class="big-stat">3.6</div>
-                <h3 data-i18n="behavior.cards.title">Carte Medie per Persona</h3>
-                <p class="stat-description" data-i18n="behavior.cards.description">
-                    I clienti si iscrivono in media a 3,6 programmi fedeltà di ristoranti. 
-                    La Gen Z ha in media 4,4 carte, mostrando un coinvolgimento maggiore.
-                </p>
-                <div class="stat-source" data-i18n="behavior.cards.source">Fonte: National Restaurant Association</div>
-            </div>
+            <div class="stats-grid">
+                <div class="stat-block">
+                    <div class="big-stat">47%</div>
+                    <h3 data-i18n="behavior.usage.title">Usano le Carte Più Volte al Mese</h3>
+                    <p class="stat-description" data-i18n="behavior.usage.description">
+                        Quasi la metà dei possessori di carte fedeltà le usa più volte 
+                        al mese, mentre il 32% le usa più volte a settimana.
+                    </p>
+                    <div class="stat-source" data-i18n="behavior.usage.source">Fonte: Deloitte Restaurant Study</div>
+                </div>
 
-            <div class="stat-block">
-                <div class="big-stat">81%</div>
-                <h3 data-i18n="behavior.join.title">Si Unirebbe se Offerto</h3>
-                <p class="stat-description" data-i18n="behavior.join.description">
-                    Tra i consumatori attualmente non iscritti a programmi fedeltà, l'81% dichiara che 
-                    parteciperebbe se offerto nel loro ristorante preferito.
-                </p>
-                <div class="stat-source" data-i18n="behavior.join.source">Fonte: Restaurant Technology Report 2024</div>
-            </div>
+                <div class="stat-block">
+                    <div class="big-stat">3.6</div>
+                    <h3 data-i18n="behavior.cards.title">Carte Medie per Persona</h3>
+                    <p class="stat-description" data-i18n="behavior.cards.description">
+                        I clienti si iscrivono in media a 3,6 programmi fedeltà di ristoranti. 
+                        La Gen Z ha in media 4,4 carte, mostrando un coinvolgimento maggiore.
+                    </p>
+                    <div class="stat-source" data-i18n="behavior.cards.source">Fonte: National Restaurant Association</div>
+                </div>
 
-            <div class="stat-block">
-                <div class="big-stat">35%</div>
-                <h3 data-i18n="behavior.increase.title">Spenderebbe di Più</h3>
-                <p class="stat-description" data-i18n="behavior.increase.description">
-                    I clienti aumenterebbero la loro spesa in un ristorante del 35% se 
-                    offrisse un programma fedeltà attraente.
-                </p>
-                <div class="stat-source" data-i18n="behavior.increase.source">Fonte: National Restaurant Association</div>
+                <div class="stat-block">
+                    <div class="big-stat">35%</div>
+                    <h3 data-i18n="behavior.increase.title">Spenderebbe di Più</h3>
+                    <p class="stat-description" data-i18n="behavior.increase.description">
+                        I clienti aumenterebbero la loro spesa in un ristorante del 35% se 
+                        offrisse un programma fedeltà attraente.
+                    </p>
+                    <div class="stat-source" data-i18n="behavior.increase.source">Fonte: National Restaurant Association</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Comparison Table -->
-    <section class="container">
-        <div class="section-header">
-            <h2 data-i18n="comparison.title">Con vs Senza Carte Fedeltà</h2>
-            <p data-i18n="comparison.subtitle">La differenza misurabile nel comportamento dei clienti</p>
-        </div>
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="comparison.title">Con vs Senza Carte Fedeltà</h2>
+                <p class="section-subtitle" data-i18n="comparison.subtitle">La differenza misurabile nel comportamento dei clienti</p>
+            </div>
 
-        <table class="comparison-table" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th data-i18n="comparison.metric">Metrica</th>
-                    <th data-i18n="comparison.without">Senza Carta Fedeltà</th>
-                    <th data-i18n="comparison.with">Con Carta Fedeltà</th>
-                    <th data-i18n="comparison.improvement">Miglioramento</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong data-i18n="comparison.visits">Visite Mensili Medie</strong></td>
-                    <td data-i18n="comparison.visits.without">2 visite</td>
-                    <td data-i18n="comparison.visits.with">2,4 visite</td>
-                    <td style="color: var(--success);">+20%</td>
-                </tr>
-                <tr>
-                    <td><strong data-i18n="comparison.check">Scontrino Medio</strong></td>
-                    <td>€15</td>
-                    <td>€18</td>
-                    <td style="color: var(--success);">+20%</td>
-                </tr>
-                <tr>
-                    <td><strong data-i18n="comparison.lifetime">Durata Cliente</strong></td>
-                    <td data-i18n="comparison.lifetime.without">12 mesi</td>
-                    <td data-i18n="comparison.lifetime.with">36 mesi</td>
-                    <td style="color: var(--success);">+200%</td>
-                </tr>
-                <tr>
-                    <td><strong data-i18n="comparison.revenue">Ricavi Annuali per Cliente</strong></td>
-                    <td>€360</td>
-                    <td>€518</td>
-                    <td style="color: var(--success);">+44%</td>
-                </tr>
-                <tr>
-                    <td><strong data-i18n="comparison.referral">Tasso di Referral</strong></td>
-                    <td>10%</td>
-                    <td>73%</td>
-                    <td style="color: var(--success);">+630%</td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="comparison-table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th data-i18n="comparison.metric">Metrica</th>
+                        <th data-i18n="comparison.without">Senza Carta Fedeltà</th>
+                        <th data-i18n="comparison.with">Con Carta Fedeltà</th>
+                        <th data-i18n="comparison.improvement">Miglioramento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong data-i18n="comparison.visits">Visite Mensili Medie</strong></td>
+                        <td data-i18n="comparison.visits.without">2 visite</td>
+                        <td data-i18n="comparison.visits.with">2,4 visite</td>
+                        <td style="color: var(--success);">+20%</td>
+                    </tr>
+                    <tr>
+                        <td><strong data-i18n="comparison.check">Scontrino Medio</strong></td>
+                        <td>€15</td>
+                        <td>€18</td>
+                        <td style="color: var(--success);">+20%</td>
+                    </tr>
+                    <tr>
+                        <td><strong data-i18n="comparison.lifetime">Durata Cliente</strong></td>
+                        <td data-i18n="comparison.lifetime.without">12 mesi</td>
+                        <td data-i18n="comparison.lifetime.with">36 mesi</td>
+                        <td style="color: var(--success);">+200%</td>
+                    </tr>
+                    <tr>
+                        <td><strong data-i18n="comparison.revenue">Ricavi Annuali per Cliente</strong></td>
+                        <td>€360</td>
+                        <td>€518</td>
+                        <td style="color: var(--success);">+44%</td>
+                    </tr>
+                    <tr>
+                        <td><strong data-i18n="comparison.referral">Tasso di Referral</strong></td>
+                        <td>10%</td>
+                        <td>73%</td>
+                        <td style="color: var(--success);">+630%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <!-- Success Factors -->
-    <section class="container">
-        <div class="section-header">
-            <h2 data-i18n="digital.title">Perché il Digitale Batte la Carta</h2>
-            <p data-i18n="digital.subtitle">I vantaggi delle carte fedeltà digitali rispetto alle tessere tradizionali</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-block">
-                <div class="big-stat">70%</div>
-                <h3 data-i18n="digital.lost.title">Tessere Cartacee si Perdono</h3>
-                <p class="stat-description" data-i18n="digital.lost.description">
-                    7 tessere fedeltà cartacee su 10 si perdono o vengono dimenticate, il che significa che i clienti 
-                    non le completano mai. Le carte digitali sono sempre nel loro telefono.
-                </p>
+    <section style="padding: 80px 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="digital.title">Perché il Digitale Batte la Carta</h2>
+                <p class="section-subtitle" data-i18n="digital.subtitle">I vantaggi delle carte fedeltà digitali rispetto alle tessere tradizionali</p>
             </div>
 
-            <div class="stat-block">
-                <div class="big-stat">3s</div>
-                <h3 data-i18n="digital.scan.title">Tempo di Scansione</h3>
-                <p class="stat-description" data-i18n="digital.scan.description">
-                    La scansione QR digitale richiede solo 3 secondi rispetto alla timbratura manuale e alla gestione 
-                    delle carte. Un servizio più veloce significa clienti più felici.
-                </p>
-            </div>
+            <div class="stats-grid">
+                <div class="stat-block">
+                    <div class="big-stat">70%</div>
+                    <h3 data-i18n="digital.lost.title">Tessere Cartacee si Perdono</h3>
+                    <p class="stat-description" data-i18n="digital.lost.description">
+                        7 tessere fedeltà cartacee su 10 si perdono o vengono dimenticate, il che significa che i clienti 
+                        non le completano mai. Le carte digitali sono sempre nel loro telefono.
+                    </p>
+                </div>
 
-            <div class="stat-block">
-                <div class="big-stat">100%</div>
-                <h3 data-i18n="digital.data.title">Raccolta Dati</h3>
-                <p class="stat-description" data-i18n="digital.data.description">
-                    Ogni interazione digitale viene tracciata, fornendoti informazioni sul comportamento 
-                    dei clienti. Le tessere cartacee non forniscono alcuna analisi.
-                </p>
-            </div>
+                <div class="stat-block">
+                    <div class="big-stat">3s</div>
+                    <h3 data-i18n="digital.scan.title">Tempo di Scansione</h3>
+                    <p class="stat-description" data-i18n="digital.scan.description">
+                        La scansione QR digitale richiede solo 3 secondi rispetto alla timbratura manuale e alla gestione 
+                        delle carte. Un servizio più veloce significa clienti più felici.
+                    </p>
+                </div>
 
-            <div class="stat-block">
-                <div class="big-stat">97%</div>
-                <h3 data-i18n="digital.notification.title">Tasso di Apertura Notifiche Push</h3>
-                <p class="stat-description" data-i18n="digital.notification.description">
-                    I programmi digitali consentono comunicazione istantanea. Le notifiche push hanno 
-                    un tasso di apertura del 97% rispetto al 20% delle email.
-                </p>
+                <div class="stat-block">
+                    <div class="big-stat">97%</div>
+                    <h3 data-i18n="digital.notification.title">Tasso di Apertura Notifiche Push</h3>
+                    <p class="stat-description" data-i18n="digital.notification.description">
+                        I programmi digitali consentono comunicazione istantanea. Le notifiche push hanno 
+                        un tasso di apertura del 97% rispetto al 20% delle email.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -378,9 +237,9 @@
         <div class="container">
             <div class="cta-content">
                 <h2 data-i18n="cta.title">Pronto ad aumentare i tuoi ricavi del 20%?</h2>
-                <p data-i18n="cta.subtitle">Unisciti ai ristoranti lungimiranti che già utilizzano la fedeltà digitale</p>
+                <p style="font-size: 19px; margin-bottom: 32px; color: var(--gray-900);" data-i18n="cta.subtitle">Unisciti ai ristoranti lungimiranti che già utilizzano la fedeltà digitale</p>
                 <div class="cta-actions">
-                    <button class="btn btn-primary btn-large" onclick="window.location.href='index.html#pricing'" data-i18n="cta.button">
+                    <button class="btn btn-primary btn-large" style="margin-top: 16px;" onclick="window.location.href='index.html#pricing'" data-i18n="cta.button">
                         Inizia Ora
                     </button>
                 </div>
@@ -393,13 +252,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="7" height="7" rx="2" fill="#7C3AED"/>
-                        <rect x="14" y="3" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="3" y="14" width="7" height="7" rx="2" fill="#A78BFA"/>
-                        <rect x="14" y="14" width="7" height="7" rx="2" fill="#7C3AED"/>
-                    </svg>
-                    <span>Loyaly</span>
+                    <img src="Icona.png" alt="Loyaly" style="height: 28px; width: auto;">
+                    <img src="Scritta_gialla.png" alt="Loyaly" style="height: 18px; width: auto;" class="nav-logo-wordmark">
                 </div>
                 <div class="footer-links">
                     <a href="mailto:support@loyaly.eu" data-i18n="footer.support">Supporto</a>

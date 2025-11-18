@@ -2,8 +2,8 @@
 
 /* Hero Section Fix */
 .programs-hero {
-    padding: 100px 0 40px;
-    background: linear-gradient(180deg, var(--primary-50, #F5F3FF) 0%, var(--bg-primary, #FFFFFF) 100%);
+    padding: 120px 0 60px;
+    background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
 }
 
 .hero-content {
@@ -62,7 +62,26 @@
     gap: 12px;
     justify-content: center;
     margin-bottom: 40px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .location-filter {
+        justify-content: flex-start;
+        padding: 0 20px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .location-filter::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.color-black {
+    color: black !important;
 }
 
 .filter-pill {
@@ -75,6 +94,8 @@
     color: var(--gray-600);
     cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .filter-pill:hover {
@@ -85,7 +106,7 @@
 .filter-pill.active {
     background: var(--primary-600);
     border-color: var(--primary-600);
-    color: white;
+    color: black;
 }
 
 /* Programs Grid */
@@ -114,7 +135,7 @@
 /* Loyalty Card Display */
 .card-preview {
     padding: 20px;
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-500) 100%);
+    background: linear-gradient(135deg, #FBD501 0%, #FFF9CF 50%, #E2AF11 100%);
     position: relative;
     min-height: 200px;
 }
@@ -265,7 +286,7 @@
     margin-top: 16px;
     padding: 12px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 800;
     justify-content: center;
 }
 
@@ -565,12 +586,6 @@
         grid-template-columns: 1fr;
     }
     
-    .location-filter {
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 0 20px;
-    }
-    
     .stamps-preview {
         grid-template-columns: repeat(5, 1fr);
     }
@@ -599,7 +614,7 @@
 .app-cta {
   position: fixed;
   z-index: 1000;
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+  background: linear-gradient(135deg, #FBD501 0%, #FFF9CF 50%, #E2AF11 100%);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
 }
 

@@ -3,10 +3,159 @@
 // Global variables
 let currentUser = null;
 let selectedCardForAuth = null;
+let currentLanguage = 'it';
+
+// Language switching function
+window.switchLanguage = function(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Update active button
+    document.querySelectorAll('.lang-button').forEach(btn => {
+        btn.classList.remove('active');
+        if ((btn.textContent === 'IT' && lang === 'it') || (btn.textContent === 'EN' && lang === 'en')) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Translations object
+    const translations = {
+        it: {
+            appCtaTitle: 'Gestisci le tue carte facilmente',
+            appCtaSubtitle: 'Scarica la nostra app per la migliore esperienza',
+            heroTitle: 'Scopri i Programmi Fedeltà',
+            heroSubtitle: 'Trova e iscriviti ai programmi fedeltà dei tuoi ristoranti preferiti. Non perdere mai più una tessera!',
+            searchPlaceholder: 'Cerca ristoranti o località...',
+            myCards: 'Le Mie Carte',
+            allLocations: 'Tutte le Località',
+            noPrograms: 'Nessun programma trovato',
+            tryAdjusting: 'Prova a modificare la ricerca o i filtri',
+            signInTitle: 'Accedi per Ottenere la Carta',
+            signInSubtitle: 'Unisciti al programma fedeltà e inizia a guadagnare premi',
+            signUpTitle: 'Registrati per Ottenere la Carta',
+            email: 'Email',
+            password: 'Password',
+            name: 'Nome',
+            signIn: 'Accedi',
+            signUp: 'Registrati e Ottieni la Carta',
+            noAccount: 'Non hai un account?',
+            register: 'Registrati',
+            hasAccount: 'Hai già un account?',
+            cardSuccess: 'Carta Aggiunta con Successo!',
+            startCollecting: 'Ora puoi iniziare a collezionare timbri',
+            viewMyCards: 'Vedi le Mie Carte',
+            signOut: 'Esci'
+        },
+        en: {
+            appCtaTitle: 'Manage your cards easily',
+            appCtaSubtitle: 'Download our app for the best experience',
+            heroTitle: 'Discover Loyalty Programs',
+            heroSubtitle: 'Find and join loyalty programs from your favorite restaurants. Never lose a stamp card again!',
+            searchPlaceholder: 'Search restaurants or locations...',
+            myCards: 'My Cards',
+            allLocations: 'All Locations',
+            noPrograms: 'No programs found',
+            tryAdjusting: 'Try adjusting your search or filters',
+            signInTitle: 'Sign In to Get Card',
+            signInSubtitle: 'Join the loyalty program and start earning rewards',
+            signUpTitle: 'Sign Up to Get Card',
+            email: 'Email',
+            password: 'Password',
+            name: 'Name',
+            signIn: 'Sign In',
+            signUp: 'Sign Up & Get Card',
+            noAccount: "Don't have an account?",
+            register: 'Sign up',
+            hasAccount: 'Already have an account?',
+            cardSuccess: 'Card Added Successfully!',
+            startCollecting: 'You can now start collecting stamps',
+            viewMyCards: 'View My Cards',
+            signOut: 'Sign Out'
+        }
+    };
+    
+    const t = translations[lang];
+    
+    // Update UI elements
+    const appCtaTitle = document.querySelector('.app-cta-text h3');
+    const appCtaSubtitle = document.querySelector('.app-cta-text p');
+    const heroTitle = document.querySelector('.hero-content h1');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const searchInput = document.getElementById('search-programs');
+    const myCardsBtn = document.querySelector('[data-filter="my-cards"]');
+    const allLocationsBtn = document.querySelector('[data-location="all"]');
+    const emptyStateH3 = document.querySelector('.empty-state h3');
+    const emptyStateP = document.querySelector('.empty-state p');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubtitle = document.getElementById('modal-subtitle');
+    const signupNameLabel = document.querySelector('label[for="signup-name"]');
+    const signinEmailLabel = document.querySelector('label[for="signin-email"]');
+    const signinPasswordLabel = document.querySelector('label[for="signin-password"]');
+    const signupEmailLabel = document.querySelector('label[for="signup-email"]');
+    const signupPasswordLabel = document.querySelector('label[for="signup-password"]');
+    
+    if (appCtaTitle) appCtaTitle.textContent = t.appCtaTitle;
+    if (appCtaSubtitle) appCtaSubtitle.textContent = t.appCtaSubtitle;
+    if (heroTitle) heroTitle.textContent = t.heroTitle;
+    if (heroSubtitle) heroSubtitle.textContent = t.heroSubtitle;
+    if (searchInput) searchInput.placeholder = t.searchPlaceholder;
+    if (myCardsBtn) myCardsBtn.textContent = t.myCards;
+    if (allLocationsBtn) allLocationsBtn.textContent = t.allLocations;
+    if (emptyStateH3) emptyStateH3.textContent = t.noPrograms;
+    if (emptyStateP) emptyStateP.textContent = t.tryAdjusting;
+    if (signinEmailLabel) signinEmailLabel.textContent = t.email;
+    if (signinPasswordLabel) signinPasswordLabel.textContent = t.password;
+    if (signupNameLabel) signupNameLabel.textContent = t.name;
+    if (signupEmailLabel) signupEmailLabel.textContent = t.email;
+    if (signupPasswordLabel) signupPasswordLabel.textContent = t.password;
+    
+    // Update modal based on current form
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+    if (signinForm && signinForm.style.display !== 'none') {
+        if (modalTitle) modalTitle.textContent = t.signInTitle;
+        if (modalSubtitle) modalSubtitle.textContent = t.signInSubtitle;
+    } else if (signupForm && signupForm.style.display !== 'none') {
+        if (modalTitle) modalTitle.textContent = t.signUpTitle;
+        if (modalSubtitle) modalSubtitle.textContent = t.signInSubtitle;
+    }
+    
+    // Update buttons text
+    const signinBtn = document.querySelector('#signin-form .btn-primary');
+    const signupBtn = document.querySelector('#signup-form .btn-primary');
+    const signoutBtn = document.querySelector('#user-menu .btn-secondary');
+    const successBtn = document.querySelector('#success-state .btn-primary');
+    const successH3 = document.querySelector('#success-state h3');
+    const successP = document.querySelector('#success-state p');
+    
+    if (signinBtn) signinBtn.textContent = t.signIn;
+    if (signupBtn) signupBtn.textContent = t.signUp;
+    if (signoutBtn) signoutBtn.textContent = t.signOut;
+    if (successBtn) successBtn.textContent = t.viewMyCards;
+    if (successH3) successH3.textContent = t.cardSuccess;
+    if (successP) successP.textContent = t.startCollecting;
+    
+    // Update form footer links
+    const signinFooter = document.querySelector('#signin-form .form-footer');
+    const signupFooter = document.querySelector('#signup-form .form-footer');
+    
+    if (signinFooter) {
+        signinFooter.innerHTML = t.noAccount + ' <a href="#" onclick="switchToSignUp(); return false;">' + t.register + '</a>';
+    }
+    if (signupFooter) {
+        signupFooter.innerHTML = t.hasAccount + ' <a href="#" onclick="switchToSignIn(); return false;">' + t.signIn + '</a>';
+    }
+}
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Page loaded, initializing...');
+    
+    // Load saved language preference
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang && savedLang !== 'it') {
+        switchLanguage(savedLang);
+    }
     
     // Check authentication
     await checkAuth();
@@ -211,14 +360,14 @@ function createProgramCard(program, userCardData) {
     
     let buttonHtml = '';
     if (isCompleted) {
-        buttonHtml = '<button class="btn btn-success" style="background: #10B981; color: white; cursor: default;" disabled>🎉 Reward Earned!</button>';
+        buttonHtml = '<button class="btn btn-success" style="background: #10B981; color: white; cursor: default;" disabled>🎉 Premio Ottenuto!</button>';
     } else if (userHasCard) {
-        buttonHtml = '<div style="background: #f0f0f0; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 12px;"><div style="font-size: 24px; font-weight: 700; color: #7c5ce6;">' + currentStamps + '/' + stampsRequired + '</div><div style="font-size: 12px; color: #666; margin-top: 4px;">Stamps</div></div><button class="btn btn-primary card-action-btn" onclick="showQRCode(\'' + program.id + '\', \'' + program.display_name + '\', ' + cardNumber + ')" style="background: #7c5ce6;">Show QR Code</button>';
+        buttonHtml = '<div style="background: #f0f0f0; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 12px;"><div style="font-size: 24px; font-weight: 700; color: #000;">' + currentStamps + '/' + stampsRequired + '</div><div style="font-size: 12px; color: #666; margin-top: 4px;">Timbri</div></div><button class="btn btn-primary card-action-btn" onclick="showQRCode(\'' + program.id + '\', \'' + program.display_name + '\', ' + cardNumber + ')">Mostra Codice QR</button>';
     } else {
-        buttonHtml = '<button class="btn btn-primary card-action-btn" onclick="getCard(\'' + program.id + '\', \'' + program.restaurant_id + '\')">Get This Card</button>';
+        buttonHtml = '<button class="btn btn-primary card-action-btn" onclick="getCard(\'' + program.id + '\', \'' + program.restaurant_id + '\')">Ottieni Questa Carta</button>';
     }
     
-    const ownedBadge = userHasCard ? '<div style="position: absolute; top: 12px; right: 12px; background: rgba(124, 92, 230, 0.95); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">✓ Your Card</div>' : '';
+    const ownedBadge = userHasCard ? '<div style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #FBD501 0%, #FFF9CF 50%, #E2AF11 100%); color: #000; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">✓ La Tua Carta</div>' : '';
     
     const grayOverlay = !userHasCard ? '<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.3); z-index: 1; pointer-events: none;"></div>' : '';
     
@@ -228,7 +377,7 @@ function createProgramCard(program, userCardData) {
     
     const addressHtml = program.location_address ? '<div class="restaurant-address">📍 ' + program.location_address + '</div>' : '';
     
-    card.innerHTML = '<div class="card-preview" style="' + bgStyle + ' position: relative;">' + ownedBadge + grayOverlay + '<div class="card-content-preview" style="position: relative; z-index: 1;"><div class="card-header-preview"><div class="card-logo-preview">' + logoHtml + '</div><div><div class="card-restaurant-name">' + (program.display_name || 'Restaurant') + '</div>' + locationText + '</div></div><div class="stamps-preview">' + stampsHtml + '</div><div class="card-reward-preview"><span>Reward:</span><strong>' + (program.reward_text || 'Free Item') + '</strong></div></div></div><div class="card-info-section"><div class="restaurant-info"><div class="restaurant-name-link">' + (program.display_name || 'Restaurant') + '</div>' + addressHtml + '</div><div class="card-stats"><div class="stat-item"><div class="stat-number">' + stampsRequired + '</div><div class="stat-label">Stamps to Reward</div></div></div>' + buttonHtml + '</div>';
+    card.innerHTML = '<div class="card-preview" style="' + bgStyle + ' position: relative;">' + ownedBadge + grayOverlay + '<div class="card-content-preview" style="position: relative; z-index: 1;"><div class="card-header-preview"><div class="card-logo-preview">' + logoHtml + '</div><div><div class="card-restaurant-name">' + (program.display_name || 'Restaurant') + '</div>' + locationText + '</div></div><div class="stamps-preview">' + stampsHtml + '</div><div class="card-reward-preview"><span>Premio:</span><strong>' + (program.reward_text || 'Articolo Gratuito') + '</strong></div></div></div><div class="card-info-section"><div class="restaurant-info"><div class="restaurant-name-link">' + (program.display_name || 'Restaurant') + '</div>' + addressHtml + '</div><div class="card-stats"><div class="stat-item"><div class="stat-number">' + stampsRequired + '</div><div class="stat-label">Timbri per Premio</div></div></div>' + buttonHtml + '</div>';
     
     return card;
 }
@@ -242,7 +391,7 @@ window.showQRCode = async function(cardId, restaurantName, cardNumber) {
     modal.style.display = 'flex';
     modal.style.zIndex = '10000';
     
-    modal.innerHTML = '<div class="modal-backdrop" onclick="closeQRModal()"></div><div class="modal-content" style="max-width: 500px;"><button class="modal-close" onclick="closeQRModal()">×</button><div style="text-align: center; padding: 20px 0;"><h2 style="font-size: 24px; font-weight: 600; margin-bottom: 8px;">' + restaurantName + '</h2><p style="font-size: 14px; color: #666; margin-bottom: 32px;">Scan Card</p><div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 32px;"><div id="qr-code-container" style="display: flex; justify-content: center;"></div></div><p style="font-size: 16px; color: #666; margin-bottom: 24px;">Show this code to staff to collect stamps</p><div style="background: #f5f5f7; padding: 24px; border-radius: 16px; margin-top: 24px;"><p style="font-size: 14px; color: #666; margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">Card Number</p><p style="font-size: 48px; font-weight: bold; color: #7c5ce6; letter-spacing: 2px; margin: 0; user-select: all;">#' + cardNumber + '</p><p style="font-size: 12px; color: #999; margin-top: 8px;">For manual entry by staff</p></div></div></div>';
+    modal.innerHTML = '<div class="modal-backdrop" onclick="closeQRModal()"></div><div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;"><button class="modal-close" onclick="closeQRModal()">×</button><div style="text-align: center; padding: 20px 0;"><h2 style="font-size: 24px; font-weight: 600; margin-bottom: 8px;">' + restaurantName + '</h2><p style="font-size: 14px; color: #666; margin-bottom: 32px;">Scansiona la Carta</p><div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 32px;"><div id="qr-code-container" style="display: flex; justify-content: center;"></div></div><p style="font-size: 16px; color: #666; margin-bottom: 24px;">Mostra questo codice allo staff per collezionare timbri</p><div style="background: linear-gradient(135deg, #FBD501 0%, #FFF9CF 50%, #E2AF11 100%); padding: 24px; border-radius: 16px; margin-top: 24px;"><p style="font-size: 14px; color: #000; margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px;">Numero Carta</p><p style="font-size: 48px; font-weight: bold; color: #000; letter-spacing: 2px; margin: 0; user-select: all;">#' + cardNumber + '</p><p style="font-size: 12px; color: #666; margin-top: 8px;">Per inserimento manuale da parte dello staff</p></div></div></div>';
     
     document.body.appendChild(modal);
     
@@ -843,6 +992,7 @@ function initializeAppCTA() {
     
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isAndroid = /Android/.test(navigator.userAgent);
+    const isMobile = window.innerWidth <= 768;
     
     const appStoreLink = document.getElementById('app-store-link');
     const playStoreLink = document.getElementById('play-store-link');
@@ -851,10 +1001,20 @@ function initializeAppCTA() {
         appStoreLink.href = 'https://apps.apple.com/app/your-app-id';
         playStoreLink.href = 'https://play.google.com/store/apps/details?id=your.package.name';
         
-        if (isIOS && window.innerWidth <= 768) {
-            playStoreLink.style.display = 'none';
-        } else if (isAndroid && window.innerWidth <= 768) {
-            appStoreLink.style.display = 'none';
+        // Reset visibility
+        appStoreLink.style.display = '';
+        playStoreLink.style.display = '';
+        
+        // SOLO in vista mobile: mostra solo il bottone appropriato
+        if (isMobile) {
+            if (isIOS) {
+                // iOS mobile: solo App Store
+                playStoreLink.style.display = 'none';
+            } else if (isAndroid) {
+                // Android mobile: solo Play Store
+                appStoreLink.style.display = 'none';
+            }
         }
+        // Desktop (>768px): mostra entrambi i bottoni (già fatto con reset)
     }
 }
